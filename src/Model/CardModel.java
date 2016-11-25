@@ -6,11 +6,26 @@ package Model;
 public class CardModel {
     private int pointScore;
     private int pointAttaque;
-
+    private int pieces;
     public CardModel(){}
     public CardModel(int pointAttaque,int pointScore){
         this.pointAttaque=pointAttaque;
         this.pointScore=pointScore;
+    }
+
+
+    public CardModel(int pointAttaque,int pointScore,int pieces){
+        this.pointAttaque=pointAttaque;
+        this.pointScore=pointScore;
+        this.pieces=pieces;
+    }
+
+    public int getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(int pieces) {
+        this.pieces = pieces;
     }
 
     public int getPointAttaque() {

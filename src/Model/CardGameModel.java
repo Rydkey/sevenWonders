@@ -25,4 +25,6 @@ public class CardGameModel extends CardModel {
     public void setColor(String color) {
         this.color = color;
     }
+
+
 }

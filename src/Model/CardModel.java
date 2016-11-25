@@ -6,7 +6,6 @@ package Model;
 public class CardModel {
     private int pointScore;
     private int pointAttaque;
-    //baptiste autiste
 
     public CardModel(){}
     public CardModel(int pointAttaque,int pointScore){

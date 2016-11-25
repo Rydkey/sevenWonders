@@ -9,7 +9,6 @@ public class PointScientifiqueModel {
     public int getNbPointScientifique() {
         return nbPointScientifique;
     }
-
     public void setNbPointScientifique(int nbPointScientifique) {
         this.nbPointScientifique = nbPointScientifique;
     }
@@ -19,5 +18,4 @@ public class PointScientifiqueModel {
             //Victoire du joueur
         }
     }
-
 }

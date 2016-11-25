@@ -17,17 +17,18 @@ public class DeckModel {
     CardGameModel mine = new CardGameModel(1,0,0 ,"marron");
     CardGameModel apothicaire = new CardGameModel(1,0,0 ,"vert");
     CardGameModel atelier = new CardGameModel(1,0,0 ,"vert");
-    CardGameModel scriptorium = new CardGameModel(1,0,0 ,"vert");
+    CardGameModel scriptorium = new CardGameModel(0,0,0 ,"vert"); //A voir
     CardGameModel verrerie = new CardGameModel(1,0,0 ,"grise");
     CardGameModel presse = new CardGameModel(1,0,0 ,"grise");
-    CardGameModel depotpierre = new CardGameModel(1,0,0 ,"jaune");
-    CardGameModel depotargile = new CardGameModel(1,0,0 ,"jaune");
-    CardGameModel depotbois = new CardGameModel(1,0,0 ,"jaune");
-    CardGameModel theatre = new CardGameModel(1,0,0 ,"bleu");
-    CardGameModel autel = new CardGameModel(1,0,0 ,"bleu");
-    CardGameModel bain = new CardGameModel(1,0,0 ,"bleu");
-    CardGameModel taverne = new CardGameModel(1,0,0 ,"jaune");
-    CardGameModel officine = new CardGameModel(1,0,0 ,"vert");
+    CardGameModel depotpierre = new CardGameModel(1,0,0 ,"jaune");//A voir
+    CardGameModel depotargile = new CardGameModel(1,0,0 ,"jaune");//A voir
+    CardGameModel depotbois = new CardGameModel(1,0,0 ,"jaune");//A voir
+    CardGameModel theatre = new CardGameModel(0,3,0 ,"bleu");
+    CardGameModel autel = new CardGameModel(0,3,0 ,"bleu");
+    CardGameModel bain = new CardGameModel(0,3,0 ,"bleu");
+    CardGameModel taverne = new CardGameModel(0,0,4 ,"jaune");
+    CardGameModel officine = new CardGameModel(0,0,0 ,"vert");// A voir
 
+    //Ajouter les couts des cartes
 
 }

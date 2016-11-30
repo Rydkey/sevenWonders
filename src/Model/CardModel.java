@@ -7,18 +7,64 @@ public class CardModel {
     private int pointScore;
     private int pointAttaque;
     private int pieces;
+    private int idAvancement;
+    //Bois,pierre, argile,papyrus,verre
+    private int[] ressource;
+    private int[] prix_resource;
+    private int prix_pieces;
     public CardModel(){}
-    public CardModel(int pointAttaque,int pointScore){
+    public CardModel(int pointScore,int pointAttaque){
         this.pointAttaque=pointAttaque;
         this.pointScore=pointScore;
     }
 
 
-    public CardModel(int pointAttaque,int pointScore,int pieces){
+    public CardModel(int pointScore,int pointAttaque,int pieces){
         this.pointAttaque=pointAttaque;
         this.pointScore=pointScore;
         this.pieces=pieces;
     }
+
+    public CardModel(int pointScore, int pointAttaque, int pieces, int prix_pieces) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.prix_pieces = prix_pieces;
+    }
+
+    public CardModel(int pointScore, int pointAttaque, int pieces, int[] prix_resource) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.prix_resource = prix_resource;
+    }
+
+    public CardModel(int pointScore, int pointAttaque, int pieces, int[] prix_resource, int prix_pieces) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.prix_resource = prix_resource;
+        this.prix_pieces = prix_pieces;
+    }
+
+    public CardModel(int pointScore, int pointAttaque, int pieces, int[] ressource, int[] prix_resource, int prix_pieces) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.ressource = ressource;
+        this.prix_resource = prix_resource;
+        this.prix_pieces = prix_pieces;
+    }
+
+    public CardModel(int pointScore, int pointAttaque, int pieces, int idAvancement, int[] prix_resource, int prix_pieces) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.idAvancement = idAvancement;
+        this.prix_resource = prix_resource;
+        this.prix_pieces = prix_pieces;
+    }
+
 
     public int getPieces() {
         return pieces;

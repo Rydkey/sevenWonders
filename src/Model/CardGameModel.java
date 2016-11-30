@@ -4,7 +4,6 @@ package Model;
  * Created by Michael on 18/11/2016.
  */
 public class CardGameModel extends CardModel {
-
     private String color;
 
     public CardGameModel(){}
@@ -13,14 +12,29 @@ public class CardGameModel extends CardModel {
         this.color = color;
     }
 
-    public CardGameModel(int pointAttaque, int pointScore, String color) {
-        super(pointAttaque, pointScore);
+    public CardGameModel(int pointScore,int pointAttaque, String color) {
+        super(pointScore,pointAttaque);
         this.color = color;
     }
-    public CardGameModel(int pointAttaque, int pointScore,int pieces, String color) {
-        super(pointAttaque, pointScore);
+    public CardGameModel( int pointScore,int pointAttaque,int pieces, String color) {
+        super(pointScore,pointAttaque);
         this.color = color;
     }
+
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int[] prix_resource, int prix_pieces, String color) {
+        super(pointScore, pointAttaque, pieces, prix_resource, prix_pieces);
+        this.color = color;
+    }
+    public CardGameModel(int pointScore, int pointAttaque, int pieces,int[] ressources, int[] prix_resource, int prix_pieces, String color) {
+        super(pointScore, pointAttaque, pieces,ressources, prix_resource, prix_pieces);
+        this.color = color;
+    }
+
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int idAvancement, int[] prix_resource, int prix_pieces, String color) {
+        super(pointScore, pointAttaque, pieces, idAvancement, prix_resource, prix_pieces);
+        this.color = color;
+    }
+
 
     public String getColor() {
         return color;

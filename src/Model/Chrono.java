@@ -12,7 +12,7 @@ public class Chrono extends Thread {
         boolean commencer;
         double temps=0;
 
-        public Timer(JLabel timer ){
+        public Chrono(JLabel timer ){
 
             this.timer=timer;
         }
@@ -33,7 +33,7 @@ public class Chrono extends Thread {
             }
         }
 
-        public void stopTimer(){
+        public void stopChrono(){
 
             setCommencer(false);
         }

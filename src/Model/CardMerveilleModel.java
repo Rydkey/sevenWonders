@@ -11,8 +11,8 @@ public class CardMerveilleModel extends CardModel {
         this.idMerveille = idMerveille;
     }
 
-    public CardMerveilleModel(int pointAttaque, int pointScore, int idMerveille) {
-        super(pointAttaque, pointScore);
+    public CardMerveilleModel(int pointAttaque, int pointScore, int pieces, int[] prix_ressource, int idMerveille) {
+        super(pointAttaque, pointScore, pieces, prix_ressource);
         this.idMerveille = idMerveille;
     }
 }

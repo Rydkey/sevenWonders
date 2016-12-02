@@ -30,6 +30,19 @@ public class DeckModel {
     CardGameModel taverne = new CardGameModel(0,0,4 ,new int[]{0,0,0,0,0},0 ,"jaune");
     CardScientifiqueModel officine = new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,4);// A voir
 
+    //Cartes Merveille
+    CardMerveilleModel circusMaximus = new CardMerveilleModel(1,3,0,new int[]{1,2,0,0,1},1);
+    CardMerveilleModel colosse = new CardMerveilleModel(2,3,0,new int[]{0,0,3,0,1},2);
+    CardMerveilleModel grandPhare = new CardMerveilleModel(0,4,0,new int[]{1,1,0,2,0},3);
+    CardMerveilleModel jardinsSuspendus = new CardMerveilleModel(0,3,6,new int[]{2,0,0,1,1},4);
+    CardMerveilleModel grandeBibliotheque = new CardMerveilleModel(0,4,0,new int[]{3,0,0,1,1},5);
+    CardMerveilleModel mausolee = new CardMerveilleModel(0,2,0,new int[]{0,0,2,1,2},6);
+    CardMerveilleModel piree = new CardMerveilleModel(0,2,0,new int[]{2,1,2,0,0},7);
+    CardMerveilleModel pyramides = new CardMerveilleModel(0,9,0,new int[]{0,3,0,0,1},8);
+    CardMerveilleModel sphynx = new CardMerveilleModel(0,6,0,new int[]{0,1,1,0,2},9);
+    CardMerveilleModel statueZeus = new CardMerveilleModel(1,3,0,new int[]{1,1,1,2,0},10);
+    CardMerveilleModel templeArtemis = new CardMerveilleModel(0,0,12,new int[]{1,1,0,1,1},11);
+    CardMerveilleModel viaAppia = new CardMerveilleModel(0,3,3,new int[]{0,2,2,1,0},12);
     //Ajouter les couts des cartes fait
 
 }

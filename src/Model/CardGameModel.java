@@ -35,6 +35,21 @@ public class CardGameModel extends CardModel {
         this.color = color;
     }
 
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int[] ressource, int[] prix_resource, int prix_pieces, String nom, String color) {
+        super(pointScore, pointAttaque, pieces, ressource, prix_resource, prix_pieces, nom);
+        this.color = color;
+    }
+
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int[] prix_resource, int prix_pieces, String nom, String color) {
+        super(pointScore, pointAttaque, pieces, prix_resource, prix_pieces, nom);
+        this.color = color;
+    }
+
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int idAvancement, int[] prix_resource, int prix_pieces, String nom, String color) {
+        super(pointScore, pointAttaque, pieces, idAvancement, prix_resource, prix_pieces, nom);
+        this.color = color;
+    }
+
 
     public String getColor() {
         return color;

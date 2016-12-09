@@ -56,9 +56,6 @@ public class DeckModel {
             deckAge1.remove(random.nextInt(deckAge1.size()));
         }
     }
-    public ArrayList<CardGameModel> getDeckAge1(){
-        return this.deckAge1;
-    }
 
     public ArrayList<CardGameModel> getDeckAge1() {
         return this.deckAge1;

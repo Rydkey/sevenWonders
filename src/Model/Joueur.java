@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by ANTOINE on 08/12/2016.
  */
@@ -12,6 +14,7 @@ public class Joueur {
     private int[] idMerveille;
     private int tour;
     private DeckModel deckAge1 = new DeckModel();
+    private ArrayList<CardGameModel> mainJoueur = new ArrayList<>();
 
     public int[] getIdMerveille() {
         return idMerveille;
@@ -71,6 +74,11 @@ public class Joueur {
 
     public void defausse(CardModel carte){
         setPieces(pieces+carte.getPieces());
+        deckAge1.getDeckAge1().remove(carte);
+    }
+
+    public void piocher(CardGameModel carte) {
+        mainJoueur.add(carte);
         deckAge1.getDeckAge1().remove(carte);
     }
 }

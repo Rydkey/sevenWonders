@@ -35,18 +35,18 @@ public class DeckModel {
     add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"officine",4));
 
     //Cartes Merveilles
-    add(new CardMerveilleModel(1,3,0,new int[]{1,2,0,0,1},1,"circusMaximus"));
+    add(new CardMerveilleModel(1,3,0,new int[]{1,2,0,0,1},1,"circus Maximus"));
     add(new CardMerveilleModel(2,3,0,new int[]{0,0,3,0,1},2,"colosse"));
-    add(new CardMerveilleModel(0,4,0,new int[]{1,1,0,2,0},3,"grandphare"));
-    add(new CardMerveilleModel(0,3,6,new int[]{2,0,0,1,1},4,"jardinsSuspendus"));
-    add(new CardMerveilleModel(0,4,0,new int[]{3,0,0,1,1},5,"grandeBibliotheque"));
+    add(new CardMerveilleModel(0,4,0,new int[]{1,1,0,2,0},3,"grand phare"));
+    add(new CardMerveilleModel(0,3,6,new int[]{2,0,0,1,1},4,"jardins Suspendus"));
+    add(new CardMerveilleModel(0,4,0,new int[]{3,0,0,1,1},5,"grande Bibliotheque"));
     add(new CardMerveilleModel(0,2,0,new int[]{0,0,2,1,2},6,"mausolee"));
     add(new CardMerveilleModel(0,2,0,new int[]{2,1,2,0,0},7,"piree"));
     add(new CardMerveilleModel(0,9,0,new int[]{0,3,0,0,1},8,"pyramides"));
     add(new CardMerveilleModel(0,6,0,new int[]{0,1,1,0,2},9,"sphynx"));
-    add(new CardMerveilleModel(1,3,0,new int[]{1,1,1,2,0},10,"statueZeus"));
-    add(new CardMerveilleModel(0,0,12,new int[]{1,1,0,1,1},11,"templeArtemis"));
-    add(new CardMerveilleModel(0,3,3,new int[]{0,2,2,1,0},12,"viaAppia"));
+    add(new CardMerveilleModel(1,3,0,new int[]{1,1,1,2,0},10,"statue Zeus"));
+    add(new CardMerveilleModel(0,0,12,new int[]{1,1,0,1,1},11,"temple d'Artemis"));
+    add(new CardMerveilleModel(0,3,3,new int[]{0,2,2,1,0},12,"via Appia"));
     }};
 
     //Ajouter les couts des cartes fait

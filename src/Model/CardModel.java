@@ -17,6 +17,7 @@ public class CardModel {
     public CardModel(int pointScore,int pointAttaque){
         this.pointAttaque=pointAttaque;
         this.pointScore=pointScore;
+        this.prix_resource=new int[]{0,0,0,0,0};
     }
 
 
@@ -24,6 +25,7 @@ public class CardModel {
         this.pointAttaque=pointAttaque;
         this.pointScore=pointScore;
         this.pieces=pieces;
+        this.prix_resource=new int[]{0,0,0,0,0};
     }
 
     public CardModel(int pointScore, int pointAttaque, int pieces, int prix_pieces) {
@@ -31,6 +33,7 @@ public class CardModel {
         this.pointAttaque = pointAttaque;
         this.pieces = pieces;
         this.prix_pieces = prix_pieces;
+        this.prix_resource=new int[]{0,0,0,0,0};
     }
 
     public CardModel(int pointScore, int pointAttaque, int pieces, int[] prix_resource) {
@@ -120,4 +123,18 @@ public class CardModel {
     public void setPointScore(int pointScore) {
         this.pointScore = pointScore;
     }
+
+
+    public int[] getPrix_resource() {
+        if (prix_resource==null){
+            return new int[]{0,0,0,0,0};
+
+        }
+        return prix_resource;
+    }
+
+    public int getPrix_pieces() {
+        return prix_pieces;
+    }
+
 }

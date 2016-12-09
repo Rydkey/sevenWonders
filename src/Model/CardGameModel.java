@@ -6,7 +6,9 @@ package Model;
 public class CardGameModel extends CardModel {
     private String color;
 
-    public CardGameModel(int pointAttaque, int pointScore, int pieces, int[] prix_ressource){}
+    public CardGameModel(int pointAttaque, int pointScore, int pieces, int[] prix_ressource){
+        super(pointAttaque,pointScore,pieces,prix_ressource);
+    }
 
     public CardGameModel() {
         this.color = color;

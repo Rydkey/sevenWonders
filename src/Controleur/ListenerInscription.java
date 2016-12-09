@@ -2,6 +2,7 @@ package Controleur; /**
  * Created by zliao on 08/12/16.
  */
 import Model.CardMerveilleModel;
+import Model.DeckMerveilleModel;
 import Vue.*;
 
 
@@ -23,7 +24,7 @@ public class ListenerInscription implements ActionListener{
         fenetre.finInscriptionJoueurs(conteneur);
         fenetre.setVisible(false);
         fenetre.remove(fenetre.getContentPane());
-        ConteneurChoixMerveille conteneurChoixMerveille =new ConteneurChoixMerveille(new CardMerveilleModel(0,3,3,new int[]{0,2,2,1,0},12,"via Appia"));
+        ConteneurChoixMerveille conteneurChoixMerveille =new ConteneurChoixMerveille(new DeckMerveilleModel());
         ListenerChoixMerveille listenerChoixMerveille = new ListenerChoixMerveille(conteneurChoixMerveille);
         fenetre.setContentPane(conteneurChoixMerveille);
         fenetre.pack();

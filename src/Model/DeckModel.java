@@ -42,4 +42,7 @@ public class DeckModel {
         }
     }
 
+    public ArrayList<CardGameModel> getDeckAge1() {
+        return this.deckAge1;
+    }
 }

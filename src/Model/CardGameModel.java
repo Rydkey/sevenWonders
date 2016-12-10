@@ -61,5 +61,7 @@ public class CardGameModel extends CardModel {
         this.color = color;
     }
 
-
+    public String toString(){
+        return super.getNom();
+    }
 }

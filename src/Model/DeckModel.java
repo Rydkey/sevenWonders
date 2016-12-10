@@ -57,7 +57,37 @@ public class DeckModel {
         }
     }
 
+    //renvoyé liste ?
+    /*
+    2
+    3
+    4
+    5
+    6
+     */
+    public Node faireArbre(Random random){
+        tirageAleatoire(random);
+        Node invisibleRoot =new Node(null);
+        invisibleRoot.addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
+        invisibleRoot.addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
+        ArrayList<Node> temp= new ArrayList<>();
+        temp.add((Node)invisibleRoot.getChildren().get(0));
+        temp.add((Node)invisibleRoot.getChildren().get(0));
+        for (int i=2;i<4;i++){
+            for (int j=0;j<i;j++){
+                if (j==0 || j==i){
+                    temp.get(j).addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
+                }else {
+                    Node tempCard=new Node(deckAge1.remove(random.nextInt(deckAge1.size())));
+                    temp.get(j).addChild(tempCard);
+                    temp.get(j+1).addChild(tempCard);
+                }
+            }
+        }
+        return invisibleRoot;
+    }
+
     public ArrayList<CardGameModel> getDeckAge1() {
-        return this.deckAge1;
+        return deckAge1;
     }
 }

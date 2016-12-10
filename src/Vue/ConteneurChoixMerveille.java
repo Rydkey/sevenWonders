@@ -49,40 +49,40 @@ public class ConteneurChoixMerveille extends JPanel{
         ImageIcon icon=null;
         try {
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 1) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Circus-Maximus.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Circus-Maximus.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 2) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Colosse.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Colosse.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 3) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Grand-Phare.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grand-Phare.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 4) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Jardins-Suspendus.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Jardins-Suspendus.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 5) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Grande-Bibliotheque.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grande-Bibliotheque.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 6) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Mausolee.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Mausolee.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 7) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Piree.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Piree.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 8) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Pyramide.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Pyramide.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 9) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/77-Wonders-Duel-Merveille-Sphinx.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Sphinx.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 10) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-wonders-duel-Statue-de-Zeux.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-wonders-duel-Statue-de-Zeux.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 11) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Temple-Artemis.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Temple-Artemis.jpg")));
             }
             if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 12) {
-                icon = new ImageIcon(ImageIO.read(new File("ressources/wonders/7-Wonders-Duel-Merveille-Via-Appia.jpg")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Via-Appia.jpg")));
             }
         }catch(IOException e){
             e.printStackTrace();

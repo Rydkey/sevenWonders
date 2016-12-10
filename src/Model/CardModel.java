@@ -137,4 +137,7 @@ public class CardModel {
         return prix_pieces;
     }
 
+    public String getNom() {
+        return nom;
+    }
 }

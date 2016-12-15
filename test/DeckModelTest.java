@@ -8,8 +8,9 @@ import java.util.Random;
  */
 public class DeckModelTest {
     @Test
-    public void faireArbreTest(){
+    public void faireCardTabTest(){
         DeckModel deck = new DeckModel();
-        deck.faireArbre(new Random());
+        deck.faireCardTab(new Random());
+        deck.printCardTab();
     }
 }

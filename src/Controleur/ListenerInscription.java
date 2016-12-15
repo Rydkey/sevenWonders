@@ -3,11 +3,13 @@ package Controleur; /**
  */
 import Model.CardMerveilleModel;
 import Model.DeckMerveilleModel;
+import Model.Jeu;
 import Vue.*;
 
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class ListenerInscription implements ActionListener{
     private Fenetre fenetre;
@@ -24,8 +26,12 @@ public class ListenerInscription implements ActionListener{
         fenetre.finInscriptionJoueurs(conteneur);
         fenetre.setVisible(false);
         fenetre.remove(fenetre.getContentPane());
-        ConteneurChoixMerveille conteneurChoixMerveille =new ConteneurChoixMerveille(new DeckMerveilleModel());
-        ListenerChoixMerveille listenerChoixMerveille = new ListenerChoixMerveille(conteneurChoixMerveille);
+        fenetre.setJeu(new Jeu(conteneur.getJoueur1().getText(),conteneur.getJoueur2().getText()));
+        fenetre.getJeu().setDeckMerveilleModel(new DeckMerveilleModel());
+        fenetre.getJeu().getDeckMerveilleModel().choixCarte(new Random());
+        fenetre.getJeu().setJ1joue(new Random().nextBoolean());
+        ConteneurChoixMerveille conteneurChoixMerveille =new ConteneurChoixMerveille(fenetre);
+        ListenerChoixMerveille listenerChoixMerveille = new ListenerChoixMerveille(conteneurChoixMerveille,fenetre);
         fenetre.setContentPane(conteneurChoixMerveille);
         fenetre.pack();
         fenetre.setVisible(true);

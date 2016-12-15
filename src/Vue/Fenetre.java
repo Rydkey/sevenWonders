@@ -2,10 +2,13 @@ package Vue; /**
  * Created by zliao on 08/12/16.
  */
 
+import Model.Jeu;
+
 import javax.swing.*;
 import javax.swing.*;
 
 public class Fenetre extends JFrame {
+    Jeu jeu;
 
     public Fenetre(String nomFenetre){
         setTitle(nomFenetre);
@@ -13,6 +16,7 @@ public class Fenetre extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         ConteneurInscription conteneur =new ConteneurInscription(this);
+
         setContentPane(conteneur);
 
         setVisible(true);
@@ -33,6 +37,13 @@ public class Fenetre extends JFrame {
         validate();     //Mise à jour de la fenetre
     }
 
+    public Jeu getJeu() {
+        return jeu;
+    }
+
+    public void setJeu(Jeu jeu) {
+        this.jeu = jeu;
+    }
 
     public static void main(String[] args){
         Fenetre fen = new Fenetre("7 wonders duel");

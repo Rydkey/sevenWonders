@@ -16,12 +16,28 @@ public class Joueur {
     private DeckModel deckAge1 = new DeckModel();
     private ArrayList<CardGameModel> mainJoueur = new ArrayList<>();
 
+    public Joueur(String text) {
+        this.nom=text;
+        idMerveille=new int[]{-1,-1,-1,-1};
+        pieces=7;
+    }
+
     public int[] getIdMerveille() {
         return idMerveille;
     }
 
     public void setIdMerveille(int[] idMerveille) {
         this.idMerveille = idMerveille;
+    }
+
+    public void addIdMerveille(int idMerveillePasTab) {
+        boolean trouver=false;
+        for (int i=0;i<idMerveille.length && !trouver;i++){
+            if (idMerveille[i]==-1){
+                idMerveille[i]=idMerveillePasTab;
+                trouver=true;
+            }
+        }
     }
 
     public int getTour() {

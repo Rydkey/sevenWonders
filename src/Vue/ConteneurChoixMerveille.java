@@ -1,24 +1,19 @@
 package Vue;
 
 import Controleur.ListenerChoixMerveille;
-import Model.CardMerveilleModel;
 import Model.DeckMerveilleModel;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Created by ANTOINE on 09/12/2016.
  */
 public class ConteneurChoixMerveille extends JPanel{
 
-    Random random=new Random();
-
-    private DeckMerveilleModel deckMerveilleModel;
+    private Fenetre fen;
     JPanel conteneurJLabelMerveille;
     JPanel global;
     JLabel merveille1;
@@ -28,60 +23,75 @@ public class ConteneurChoixMerveille extends JPanel{
     private JButton boutonValidation;
 
 
-    public ConteneurChoixMerveille(DeckMerveilleModel deckMerveilleModel) {
-        this.deckMerveilleModel = deckMerveilleModel;
-        this.deckMerveilleModel.choixCarte(random);
+    public ConteneurChoixMerveille(Fenetre fenetre) {
+        this.fen = fenetre;
         initAttribut();
         addWidgets();
     }
 
     private void initAttribut(){
         global = new JPanel();
+        global.setLayout(new BoxLayout(global, BoxLayout.Y_AXIS));
         merveille1= new JLabel(initImageMerveilles(0));
-        merveille2= new JLabel(initImageMerveilles(1));
-        merveille3= new JLabel(initImageMerveilles(2));
-        merveille4= new JLabel(initImageMerveilles(3));
-        merveille1.setVisible(true);
+        if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()>=2) {
+            merveille2 = new JLabel(initImageMerveilles(1));
+        }else {
+            merveille2 = new JLabel();
+        }
+        if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()>=3) {
+            merveille3 = new JLabel(initImageMerveilles(2));
+        }else {
+            merveille3 = new JLabel();
+        }
+        if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()==4) {
+            merveille4 = new JLabel(initImageMerveilles(3));
+        }else {
+            merveille4 = new JLabel();
+        }
+        merveille1.setName("0");
+        merveille2.setName("1");
+        merveille3.setName("2");
+        merveille4.setName("3");
         conteneurJLabelMerveille = new JPanel(new GridLayout(2,2));
     }
 
     private Icon initImageMerveilles(int i) {
         ImageIcon icon=null;
         try {
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 1) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 1) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Circus-Maximus.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 2) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 2) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Colosse.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 3) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 3) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grand-Phare.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 4) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 4) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Jardins-Suspendus.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 5) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 5) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grande-Bibliotheque.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 6) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 6) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Mausolee.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 7) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 7) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Piree.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 8) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 8) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Pyramide.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 9) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 9) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Sphinx.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 10) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 10) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-wonders-duel-Statue-de-Zeux.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 11) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 11) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Temple-Artemis.jpg")));
             }
-            if (deckMerveilleModel.getChoixCarte().get(i).getIdMerveille() == 12) {
+            if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(i).getIdMerveille() == 12) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Via-Appia.jpg")));
             }
         }catch(IOException e){
@@ -95,6 +105,11 @@ public class ConteneurChoixMerveille extends JPanel{
         conteneurJLabelMerveille.add(merveille2);
         conteneurJLabelMerveille.add(merveille3);
         conteneurJLabelMerveille.add(merveille4);
+        if (fen.getJeu().getJ1joue()) {
+            global.add(new JLabel(fen.getJeu().getJoueur1().getNom()+" choisi une merveille"));
+        }else {
+            global.add(new JLabel(fen.getJeu().getJoueur2().getNom()+" choisi une merveille"));
+        }
         global.add(conteneurJLabelMerveille);
         this.add(global);
     }

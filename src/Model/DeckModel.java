@@ -33,58 +33,46 @@ public class DeckModel {
     add(new CardGameModel(3,0,0,6 ,new int[]{0,3,0,0,0},0 ,"bain","bleu"));
     add(new CardGameModel(0,0,4 ,new int[]{0,0,0,0,0},0 ,"taverne","jaune"));
     add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"officine",4));
-
-    //Cartes Merveilles
-    add(new CardMerveilleModel(1,3,0,new int[]{1,2,0,0,1},1,"circus Maximus"));
-    add(new CardMerveilleModel(2,3,0,new int[]{0,0,3,0,1},2,"colosse"));
-    add(new CardMerveilleModel(0,4,0,new int[]{1,1,0,2,0},3,"grand phare"));
-    add(new CardMerveilleModel(0,3,6,new int[]{2,0,0,1,1},4,"jardins Suspendus"));
-    add(new CardMerveilleModel(0,4,0,new int[]{3,0,0,1,1},5,"grande Bibliotheque"));
-    add(new CardMerveilleModel(0,2,0,new int[]{0,0,2,1,2},6,"mausolee"));
-    add(new CardMerveilleModel(0,2,0,new int[]{2,1,2,0,0},7,"piree"));
-    add(new CardMerveilleModel(0,9,0,new int[]{0,3,0,0,1},8,"pyramides"));
-    add(new CardMerveilleModel(0,6,0,new int[]{0,1,1,0,2},9,"sphynx"));
-    add(new CardMerveilleModel(1,3,0,new int[]{1,1,1,2,0},10,"statue Zeus"));
-    add(new CardMerveilleModel(0,0,12,new int[]{1,1,0,1,1},11,"temple d'Artemis"));
-    add(new CardMerveilleModel(0,3,3,new int[]{0,2,2,1,0},12,"via Appia"));
     }};
+
+    public CardGameModel[][] cardTab;
+
 
     //Ajouter les couts des cartes fait
     public void tirageAleatoire(Random random){
-
         for(int i=0; i<3;i++){
             deckAge1.remove(random.nextInt(deckAge1.size()));
         }
     }
 
-    //renvoyé liste ?
-    /*
-    2
-    3
-    4
-    5
-    6
-     */
-    public Node faireArbre(Random random){
+//Tableau de carte plus éfficace
+    public void faireCardTab(Random random){
         tirageAleatoire(random);
-        Node invisibleRoot =new Node(null);
-        invisibleRoot.addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
-        invisibleRoot.addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
-        ArrayList<Node> temp= new ArrayList<>();
-        temp.add((Node)invisibleRoot.getChildren().get(0));
-        temp.add((Node)invisibleRoot.getChildren().get(0));
-        for (int i=2;i<4;i++){
-            for (int j=0;j<i;j++){
-                if (j==0 || j==i){
-                    temp.get(j).addChild(new Node(deckAge1.remove(random.nextInt(deckAge1.size()))));
-                }else {
-                    Node tempCard=new Node(deckAge1.remove(random.nextInt(deckAge1.size())));
-                    temp.get(j).addChild(tempCard);
-                    temp.get(j+1).addChild(tempCard);
-                }
+        CardGameModel[] cardTabLevel1=new CardGameModel[2];
+        CardGameModel[] cardTabLevel2=new CardGameModel[3];
+        CardGameModel[] cardTabLevel3=new CardGameModel[4];
+        CardGameModel[] cardTabLevel4=new CardGameModel[5];
+        CardGameModel[] cardTabLevel5=new CardGameModel[6];
+        cardTab=new CardGameModel[][]{cardTabLevel1,cardTabLevel2,cardTabLevel3,cardTabLevel4,cardTabLevel5};
+
+        for (int i=0;i<5;i++) {
+            for (int j = 0; j < i + 2; j++) {
+                cardTab[i][j]=deckAge1.remove(random.nextInt(deckAge1.size()));
             }
         }
-        return invisibleRoot;
+    }
+
+    public void printCardTab(){
+        for (int i=0;i<5;i++) {
+            for (int j=0;j<5-i;j++){
+                System.out.print(" ");
+            }
+            for (int j = 0; j < i + 2; j++) {
+                System.out.print(cardTab[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
     }
 
     public ArrayList<CardGameModel> getDeckAge1() {

@@ -2,10 +2,12 @@ package Controleur;
 
 import Model.Jeu;
 import Vue.ConteneurChoixMerveille;
+import Vue.ConteneurResumerJoueur;
 import Vue.Fenetre;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Random;
 
 /**
  * Created by ANTOINE on 09/12/2016.
@@ -24,29 +26,34 @@ public class ListenerChoixMerveille implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(Integer.parseInt(e.getComponent().getName()));
-        System.out.println(fen.getJeu().getDeckMerveilleModel().getChoixCarte().size());
         if (fen.getJeu().getJ1joue()){
             fen.getJeu().getJoueur1().addIdMerveille(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())).getIdMerveille());
         }else {
             fen.getJeu().getJoueur2().addIdMerveille(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())).getIdMerveille());
         }
-        System.out.println(fen.getJeu().getDeckMerveilleModel().getChoixCarte().size());
         fen.getJeu().getDeckMerveilleModel().getChoixCarte().remove(Integer.parseInt(e.getComponent().getName()));
         if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()==3 || fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()==1){
             fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
         }
+        fen.setVisible(false);
         if (!(fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()==0)) {
-            fen.setVisible(false);
             conteneurChoixMerveille = new ConteneurChoixMerveille(fen);
             conteneurChoixMerveille.setControleur(this);
             fen.setContentPane(conteneurChoixMerveille);
-            fen.pack();
-            fen.setVisible(true);
-        }else {
-            fen.setVisible(false);
+        }else if(fen.getJeu().getJoueur1().getIdMerveille()[3]==-1) {
+            fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
+            fen.getJeu().getDeckMerveilleModel().choixCarte(new Random());
+            conteneurChoixMerveille = new ConteneurChoixMerveille(fen);
+            conteneurChoixMerveille.setControleur(this);
+            fen.setContentPane(conteneurChoixMerveille);
+        } else{
+                fen.getJeu().getJoueur1().setPointScore(3);
+                fen.getJeu().getJoueur2().setPointScore(3);
+                fen.setContentPane(new ConteneurResumerJoueur(fen));
 //            ConteneurAge conteneurCarte=new ConteneurAge(1)
-        }
+            }
+        fen.pack();
+        fen.setVisible(true);
     }
 
     @Override

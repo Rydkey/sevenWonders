@@ -12,14 +12,24 @@ public class Joueur {
     private int pointScore;
     private int pointAttaque;
     private int[] idMerveille;
+    private int[] ressource;
     private int tour;
     private DeckModel deckAge1 = new DeckModel();
     private ArrayList<CardGameModel> mainJoueur = new ArrayList<>();
 
     public Joueur(String text) {
         this.nom=text;
+        ressource=new int[]{0,0,0,0,0};
         idMerveille=new int[]{-1,-1,-1,-1};
         pieces=7;
+    }
+
+    public int[] getRessource() {
+        return ressource;
+    }
+
+    public void setRessource(int[] ressource) {
+        this.ressource = ressource;
     }
 
     public int[] getIdMerveille() {

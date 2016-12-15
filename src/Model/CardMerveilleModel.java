@@ -16,9 +16,8 @@ public class CardMerveilleModel extends CardGameModel {
     }
 
     public CardMerveilleModel(int pointAttaque, int pointScore, int pieces, int[] prix_ressource, int idMerveille, String nom) {
-        super(pointAttaque, pointScore, pieces, prix_ressource);
+        super(pointAttaque, pointScore, pieces, prix_ressource,nom);
         this.idMerveille = idMerveille;
-        this.nom = nom;
     }
 
     @Override

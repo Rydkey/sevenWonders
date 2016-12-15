@@ -8,12 +8,12 @@ import java.util.Random;
  */
 public class DeckMerveilleModel {
 
-    ArrayList<CardMerveilleModel> deckMerveille;
+   private ArrayList<CardMerveilleModel> deckMerveille;
 
     ArrayList<CardMerveilleModel> choixCarte;
-
+    private ArrayList<CardMerveilleModel> chosenCard;
     public DeckMerveilleModel(){
-
+        chosenCard=new ArrayList<>();
         deckMerveille = new ArrayList<>();
         choixCarte=new ArrayList<>();
         deckMerveille.add(new CardMerveilleModel(1,3,0,new int[]{1,2,0,0,1},1,"circus Maximus"));
@@ -31,8 +31,17 @@ public class DeckMerveilleModel {
     }
     public void choixCarte(Random random){
         for (int i=0;i<4;i++){
-            choixCarte.add(deckMerveille.remove(random.nextInt(deckMerveille.size())));
+            int randomInt = random.nextInt(deckMerveille.size());
+            while (chosenCard.contains(deckMerveille.get(randomInt))){
+                randomInt = random.nextInt(deckMerveille.size());
+            }
+            choixCarte.add(deckMerveille.get(randomInt));
+            chosenCard.add(deckMerveille.get(randomInt));
         }
+    }
+
+    public ArrayList<CardMerveilleModel> getDeckMerveille() {
+        return deckMerveille;
     }
 
     public ArrayList<CardMerveilleModel> getChoixCarte() {

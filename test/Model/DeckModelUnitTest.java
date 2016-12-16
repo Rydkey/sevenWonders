@@ -6,9 +6,9 @@ import org.mockito.Mockito;
 
 import java.util.Random;
 
-/**
- * Created by ANTOINE on 02/12/2016.
- */
+//*
+// * Created by ANTOINE on 02/12/2016.
+ 
 public class DeckModelUnitTest {
     @Test
     public void faireCardTabTest(){

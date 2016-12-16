@@ -8,6 +8,7 @@ import javax.swing.*;
 public class ConteneurResumerJoueur extends JPanel {
     Fenetre fenetre;
     JPanel global;
+    JPanel jPanelRight;
     JLabel jLabelNom;
     JLabel jLabelMerveille;
     JLabel jLabelscorePiece;
@@ -24,12 +25,14 @@ public class ConteneurResumerJoueur extends JPanel {
     private void initAttribut() {
         if (fenetre.getJeu().getJ1joue()){
             global = new JPanel();
+            jPanelRight = new JPanel();
+            jPanelRight.setLayout(new BoxLayout(jPanelRight, BoxLayout.Y_AXIS));
             jLabelNom = new JLabel(fenetre.getJeu().getJoueur1().getNom());
             String string="<html>Merveilles: <br>";
             for (int i=0;i<4;i++){
                 string+=fenetre.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fenetre.getJeu().getJoueur1().getIdMerveille()[i]-1).getNom()+"<br>";
             }
-            System.out.println();
+            System.out.println("suce");
             string+="</html>";
             jLabelMerveille = new JLabel(string);
             jLabelscorePiece = new JLabel("<html>Score:"+fenetre.getJeu().getJoueur1().getPointScore()+"<br> Pieces :"+fenetre.getJeu().getJoueur1().getPieces()+"</html>");
@@ -41,10 +44,12 @@ public class ConteneurResumerJoueur extends JPanel {
         }else {
 
             global = new JPanel();
+            jPanelRight = new JPanel();
+            jPanelRight.setLayout(new BoxLayout(jPanelRight, BoxLayout.Y_AXIS));
             jLabelNom = new JLabel(fenetre.getJeu().getJoueur2().getNom());
-            String string="<html>Merveilles: ";
+            String string="<html>Merveilles: <br>";
             for (int i=0;i<4;i++){
-                string+=fenetre.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fenetre.getJeu().getJoueur2().getIdMerveille()[i])+" ";
+                string+=fenetre.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fenetre.getJeu().getJoueur1().getIdMerveille()[i]-1).getNom()+"<br>";
             }
             string+="</html>";
             jLabelMerveille = new JLabel(string);
@@ -58,11 +63,12 @@ public class ConteneurResumerJoueur extends JPanel {
     }
 
     private void addWidgets() {
-        global.add(jLabelNom);
+        jPanelRight.add(jLabelNom);
+        jPanelRight.add(jLabelscorePiece);
+        jPanelRight.add(jLabelScientifique);
+        jPanelRight.add(jLabelressource);
         global.add(jLabelMerveille);
-        global.add(jLabelscorePiece);
-        global.add(jLabelScientifique);
-        global.add(jLabelressource);
+        global.add(jPanelRight);
         this.add(global);
     }
 

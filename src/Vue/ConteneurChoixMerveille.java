@@ -33,25 +33,28 @@ public class ConteneurChoixMerveille extends JPanel{
         global = new JPanel();
         global.setLayout(new BoxLayout(global, BoxLayout.Y_AXIS));
         merveille1= new JLabel(initImageMerveilles(0));
+        merveille1.setName("0");
         if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()>=2) {
             merveille2 = new JLabel(initImageMerveilles(1));
+            merveille2.setName("1");
         }else {
             merveille2 = new JLabel();
+            merveille2.setName("-1");
         }
         if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()>=3) {
             merveille3 = new JLabel(initImageMerveilles(2));
+            merveille3.setName("2");
         }else {
             merveille3 = new JLabel();
+            merveille3.setName("-1");
         }
         if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size()==4) {
             merveille4 = new JLabel(initImageMerveilles(3));
+            merveille4.setName("3");
         }else {
             merveille4 = new JLabel();
+            merveille4.setName("-1");
         }
-        merveille1.setName("0");
-        merveille2.setName("1");
-        merveille3.setName("2");
-        merveille4.setName("3");
         conteneurJLabelMerveille = new JPanel(new GridLayout(2,2));
     }
 

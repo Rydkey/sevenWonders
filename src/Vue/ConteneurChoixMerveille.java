@@ -25,12 +25,14 @@ public class ConteneurChoixMerveille extends JPanel{
 
     public ConteneurChoixMerveille(Fenetre fenetre) {
         this.fen = fenetre;
+        setBackground(Color.orange);
         initAttribut();
         addWidgets();
     }
 
     private void initAttribut(){
         global = new JPanel();
+        global.setOpaque(false);
         global.setLayout(new BoxLayout(global, BoxLayout.Y_AXIS));
         merveille1= new JLabel(initImageMerveilles(0));
         merveille1.setName("0");
@@ -55,7 +57,12 @@ public class ConteneurChoixMerveille extends JPanel{
             merveille4 = new JLabel();
             merveille4.setName("-1");
         }
+        merveille1.setOpaque(false);
+        merveille2.setOpaque(false);
+        merveille3.setOpaque(false);
+        merveille4.setOpaque(false);
         conteneurJLabelMerveille = new JPanel(new GridLayout(2,2));
+        conteneurJLabelMerveille.setOpaque(false);
     }
 
     private Icon initImageMerveilles(int i) {
@@ -108,11 +115,15 @@ public class ConteneurChoixMerveille extends JPanel{
         conteneurJLabelMerveille.add(merveille2);
         conteneurJLabelMerveille.add(merveille3);
         conteneurJLabelMerveille.add(merveille4);
+        JLabel test;
         if (fen.getJeu().getJ1joue()) {
-            global.add(new JLabel(fen.getJeu().getJoueur1().getNom()+" choisi une merveille"));
+            test=(new JLabel(fen.getJeu().getJoueur1().getNom()+" choisit une merveille"));
         }else {
-            global.add(new JLabel(fen.getJeu().getJoueur2().getNom()+" choisi une merveille"));
+            test=(new JLabel(fen.getJeu().getJoueur2().getNom()+" choisit une merveille"));
         }
+        test.setFont(NewFont.getParchment());
+        global.add(test);
+
         global.add(conteneurJLabelMerveille);
         this.add(global);
     }

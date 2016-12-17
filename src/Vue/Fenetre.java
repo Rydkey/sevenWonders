@@ -4,21 +4,33 @@ package Vue; /**
 
 import Model.Jeu;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class Fenetre extends JFrame {
     Jeu jeu;
-
+    Image backgroundImage;
     public Fenetre(String nomFenetre){
+        NewFont.chargeParchment();
         setTitle(nomFenetre);
-        setSize(800,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        try {
+            backgroundImage=(ImageIO.read(new File("src/ressources/Background/7WondersDuel_Fond.png")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         ConteneurInscription conteneur =new ConteneurInscription(this);
 
-        setContentPane(conteneur);
+//        setContentPane(conteneur);
+        setContentPane(new JLabel(new ImageIcon(backgroundImage)));
+        setLayout(new BorderLayout());
+        add(conteneur,BorderLayout.PAGE_END);
+        setResizable(false);
 
+        pack();
         setVisible(true);
 
     }

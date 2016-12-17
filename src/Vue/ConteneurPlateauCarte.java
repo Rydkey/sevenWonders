@@ -19,7 +19,7 @@ public class ConteneurPlateauCarte extends JPanel {
     }
     private void initAttribut(){
         global = new JPanel();
-        global.setLayout(new BoxLayout(global,B));
+        global.setLayout(new BoxLayout(global,));
     }
     private void addWidgets(){
 

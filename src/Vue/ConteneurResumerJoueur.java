@@ -1,6 +1,7 @@
 package Vue;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Michael on 15/12/2016.
@@ -60,6 +61,22 @@ public class ConteneurResumerJoueur extends JPanel {
             jLabelScientifique = new JLabel();
             jLabelAvancement = new JLabel();
         }
+        this.setBackground(Color.orange);
+        global.setOpaque(false);
+        jPanelRight.setOpaque(false);
+        jLabelNom.setOpaque(false);
+        jLabelMerveille.setOpaque(false);
+        jLabelscorePiece.setOpaque(false);
+        jLabelressource.setOpaque(false);
+        jLabelScientifique.setOpaque(false);
+        jLabelAvancement.setOpaque(false);
+
+        jLabelNom.setFont(NewFont.getParchment());
+        jLabelMerveille.setFont(NewFont.getParchment());
+        jLabelscorePiece.setFont(NewFont.getParchment());
+        jLabelressource.setFont(NewFont.getParchment());
+        jLabelScientifique.setFont(NewFont.getParchment());
+        jLabelAvancement.setFont(NewFont.getParchment());
     }
 
     private void addWidgets() {

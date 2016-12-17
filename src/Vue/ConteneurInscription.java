@@ -5,6 +5,9 @@ package Vue;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import Controleur.*;
 
 
@@ -16,8 +19,8 @@ public class ConteneurInscription extends JPanel{
     public ConteneurInscription(Fenetre fen){
 
         //this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
-
+        setBackground(Color.yellow);
+        setOpaque(false);
         initAttributs(fen);
         addwidgets();
 
@@ -39,10 +42,14 @@ public class ConteneurInscription extends JPanel{
         GridLayout g = new GridLayout(2,2);
         g.setVgap(10);
         placementGrille.setLayout(g);
+        JLabel jLabelPseudo1=new JLabel("Pseudo du joueur 1 : ");
+        JLabel jLabelPseudo2=new JLabel("Pseudo du joueur 2 : ");
 
-        placementGrille.add(new JLabel("Pseudo du joueur 1 : "));
+        jLabelPseudo1.setFont(NewFont.getParchment());
+        jLabelPseudo2.setFont(NewFont.getParchment());
+        placementGrille.add(jLabelPseudo1);
         placementGrille.add(joueur1);
-        placementGrille.add(new JLabel("Pseudo du joueur 2 : "));
+        placementGrille.add(jLabelPseudo2);
         placementGrille.add(joueur2);
 
         JPanel placementGeneral = new JPanel();
@@ -52,7 +59,8 @@ public class ConteneurInscription extends JPanel{
         valider.setAlignmentX(Component.CENTER_ALIGNMENT);
         placementGeneral.add(valider);
 
-
+        placementGeneral.setOpaque(false);
+        placementGrille.setOpaque(false);
         add(placementGeneral);
 
     }

@@ -1,7 +1,9 @@
 package Controleur;
 
+import Model.DeckModel;
 import Model.Jeu;
 import Vue.ConteneurChoixMerveille;
+import Vue.ConteneurPlateauCarte;
 import Vue.ConteneurResumerJoueur;
 import Vue.Fenetre;
 
@@ -50,7 +52,10 @@ public class ListenerChoixMerveille implements MouseListener {
             } else {
                 fen.getJeu().getJoueur1().setPointScore(3);
                 fen.getJeu().getJoueur2().setPointScore(3);
-                fen.setContentPane(new ConteneurResumerJoueur(fen));
+                fen.getJeu().setAge(1);
+                fen.getJeu().setDeckModel(new DeckModel());
+                fen.getJeu().getDeckModel().faireCardTab(new Random());
+                fen.setContentPane(new ConteneurPlateauCarte(fen));
 //            ConteneurAge conteneurCarte=new ConteneurAge(1)
             }
             fen.pack();

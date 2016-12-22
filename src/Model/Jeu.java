@@ -8,6 +8,8 @@ public class Jeu {
     private Joueur joueur2;
     private DeckMerveilleModel deckMerveilleModel;
     private Boolean J1joue;
+    private int age;
+    private DeckModel deckModel;
 
     public Jeu(Joueur joueur1, Joueur joueur2) {
         this.joueur1 = joueur1;
@@ -21,6 +23,22 @@ public class Jeu {
 
     public Boolean getJ1joue() {
         return J1joue;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public DeckModel getDeckModel() {
+        return deckModel;
+    }
+
+    public void setDeckModel(DeckModel deckModel) {
+        this.deckModel = deckModel;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setJ1joue(Boolean j1joue) {

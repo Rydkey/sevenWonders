@@ -100,6 +100,11 @@ public class CardModel {
         this.nom = nom;
     }
 
+
+    public int getIdAvancement() {
+        return idAvancement;
+    }
+
     public int getPieces() {
         return pieces;
     }
@@ -131,6 +136,10 @@ public class CardModel {
 
         }
         return prix_resource;
+    }
+
+    public int[] getRessource() {
+        return ressource;
     }
 
     public int getPrix_pieces() {

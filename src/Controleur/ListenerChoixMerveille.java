@@ -7,6 +7,8 @@ import Vue.ConteneurPlateauCarte;
 import Vue.ConteneurResumerJoueur;
 import Vue.Fenetre;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
@@ -55,7 +57,21 @@ public class ListenerChoixMerveille implements MouseListener {
                 fen.getJeu().setAge(1);
                 fen.getJeu().setDeckModel(new DeckModel());
                 fen.getJeu().getDeckModel().faireCardTab(new Random());
-                fen.setContentPane(new ConteneurPlateauCarte(fen));
+                ConteneurPlateauCarte conteneurPlateauCarte = new ConteneurPlateauCarte(fen);
+                new ListenerPlateauCarte(conteneurPlateauCarte,fen);
+                JPanel global = new JPanel();
+                JPanel joueurs = new JPanel();
+                global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
+                global.setBackground(Color.orange);
+                joueurs.setLayout(new BorderLayout());
+                joueurs.setOpaque(false);
+                fen.setResumerJoueur1(new ConteneurResumerJoueur(fen,1));
+                fen.setResumerJoueur2(new ConteneurResumerJoueur(fen,2));
+                joueurs.add(fen.getResumerJoueur1(),BorderLayout.LINE_START);
+                joueurs.add(fen.getResumerJoueur2(),BorderLayout.LINE_END);
+                global.add(joueurs);
+                global.add(conteneurPlateauCarte);
+                fen.setContentPane(global);
 //            ConteneurAge conteneurCarte=new ConteneurAge(1)
             }
             fen.pack();

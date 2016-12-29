@@ -13,15 +13,23 @@ public class Joueur {
     private int pointAttaque;
     private int[] idMerveille;
     private int[] ressource;
+    private boolean[] prixRessource;
+    private ArrayList<Integer> idAvancement;
     private int tour;
-    private DeckModel deckAge1 = new DeckModel();
     private ArrayList<CardGameModel> mainJoueur = new ArrayList<>();
 
     public Joueur(String text) {
         this.nom=text;
+        idAvancement=new ArrayList<>();
         ressource=new int[]{0,0,0,0,0};
+        prixRessource=new boolean[]{false,false,false,false,false};
         idMerveille=new int[]{-1,-1,-1,-1};
         pieces=7;
+    }
+
+
+    public boolean[] getPrixRessource() {
+        return prixRessource;
     }
 
     public int[] getRessource() {
@@ -98,13 +106,34 @@ public class Joueur {
         this.nom = nom;
     }
 
-    public void defausse(CardModel carte){
-        setPieces(pieces+carte.getPieces());
-        deckAge1.getDeckAge1().remove(carte);
+    public ArrayList<Integer> getIdAvancement() {
+        return idAvancement;
     }
 
-    public void piocher(CardGameModel carte) {
+    public ArrayList<CardGameModel> getMainJoueur() {
+        return mainJoueur;
+    }
+
+    public void defausse(CardModel carte){
+        setPieces(pieces+carte.getPieces());
+    }
+
+    public void piocher(CardGameModel carte,int prix) {
         mainJoueur.add(carte);
-        deckAge1.getDeckAge1().remove(carte);
+        setPieces(getPieces()+carte.getPieces());
+        setPointScore(getPointScore()+carte.getPointScore());
+        setPieces(getPieces()-prix);
+        for (int i=0;i<5;i++){
+            if (carte.getRessource()!=null) {
+                if (carte.getRessource()[i]==-1){
+                    prixRessource[i]=true;
+                }else {
+                    ressource[i] += carte.getRessource()[i];
+                }
+            }
+        }
+        if (carte.getIdAvancement()!=0){
+            idAvancement.add(carte.getIdAvancement());
+        }
     }
 }

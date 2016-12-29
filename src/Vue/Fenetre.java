@@ -12,11 +12,13 @@ import java.io.File;
 
 public class Fenetre extends JFrame {
     Jeu jeu;
-    Image backgroundImage;
+    ConteneurResumerJoueur resumerJoueur1;
+    ConteneurResumerJoueur resumerJoueur2;
     public Fenetre(String nomFenetre){
         NewFont.chargeParchment();
         setTitle(nomFenetre);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Image backgroundImage=null;
         try {
             backgroundImage=(ImageIO.read(new File("src/ressources/Background/7WondersDuel_Fond.png")));
         }catch (Exception e){
@@ -33,6 +35,22 @@ public class Fenetre extends JFrame {
         pack();
         setVisible(true);
 
+    }
+
+    public ConteneurResumerJoueur getResumerJoueur1() {
+        return resumerJoueur1;
+    }
+
+    public void setResumerJoueur1(ConteneurResumerJoueur resumerJoueur1) {
+        this.resumerJoueur1 = resumerJoueur1;
+    }
+
+    public ConteneurResumerJoueur getResumerJoueur2() {
+        return resumerJoueur2;
+    }
+
+    public void setResumerJoueur2(ConteneurResumerJoueur resumerJoueur2) {
+        this.resumerJoueur2 = resumerJoueur2;
     }
 
     public void finInscriptionJoueurs(ConteneurInscription conteneur){

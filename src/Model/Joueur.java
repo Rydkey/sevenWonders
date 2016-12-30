@@ -126,10 +126,9 @@ public class Joueur {
         for (int i=0;i<5;i++){
             if (carte.getRessource()!=null) {
                 if (carte.getRessource()[i]==-1){
-                    prixRessource[i]=true;
-                }else {
-                    ressource[i] += carte.getRessource()[i];
+
                 }
+                ressource[i] += carte.getRessource()[i];
             }
         }
         if (carte.getIdAvancement()!=0){

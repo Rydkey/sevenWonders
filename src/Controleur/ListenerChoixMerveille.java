@@ -1,7 +1,6 @@
 package Controleur;
 
 import Model.DeckModel;
-import Model.Jeu;
 import Vue.ConteneurChoixMerveille;
 import Vue.ConteneurPlateauCarte;
 import Vue.ConteneurResumerJoueur;
@@ -57,8 +56,7 @@ public class ListenerChoixMerveille implements MouseListener {
                 fen.getJeu().setAge(1);
                 fen.getJeu().setDeckModel(new DeckModel());
                 fen.getJeu().getDeckModel().faireCardTab(new Random());
-                ConteneurPlateauCarte conteneurPlateauCarte = new ConteneurPlateauCarte(fen);
-                new ListenerPlateauCarte(conteneurPlateauCarte,fen);
+                fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
                 JPanel global = new JPanel();
                 JPanel joueurs = new JPanel();
                 global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
@@ -67,10 +65,11 @@ public class ListenerChoixMerveille implements MouseListener {
                 joueurs.setOpaque(false);
                 fen.setResumerJoueur1(new ConteneurResumerJoueur(fen,1));
                 fen.setResumerJoueur2(new ConteneurResumerJoueur(fen,2));
+                new ListenerPlateau(fen.getConteneurPlateauCarte(),fen.getResumerJoueur1(),fen.getResumerJoueur2(),fen);
                 joueurs.add(fen.getResumerJoueur1(),BorderLayout.LINE_START);
                 joueurs.add(fen.getResumerJoueur2(),BorderLayout.LINE_END);
                 global.add(joueurs);
-                global.add(conteneurPlateauCarte);
+                global.add(fen.getConteneurPlateauCarte());
                 fen.setContentPane(global);
 //            ConteneurAge conteneurCarte=new ConteneurAge(1)
             }

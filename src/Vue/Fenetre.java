@@ -14,6 +14,8 @@ public class Fenetre extends JFrame {
     Jeu jeu;
     ConteneurResumerJoueur resumerJoueur1;
     ConteneurResumerJoueur resumerJoueur2;
+    ConteneurPlateauCarte conteneurPlateauCarte;
+
     public Fenetre(String nomFenetre){
         NewFont.chargeParchment();
         setTitle(nomFenetre);
@@ -35,6 +37,14 @@ public class Fenetre extends JFrame {
         pack();
         setVisible(true);
 
+    }
+
+    public ConteneurPlateauCarte getConteneurPlateauCarte() {
+        return conteneurPlateauCarte;
+    }
+
+    public void setConteneurPlateauCarte(ConteneurPlateauCarte conteneurPlateauCarte) {
+        this.conteneurPlateauCarte = conteneurPlateauCarte;
     }
 
     public ConteneurResumerJoueur getResumerJoueur1() {

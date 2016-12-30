@@ -1,5 +1,8 @@
 package Vue;
 
+import Controleur.ListenerPlateau;
+import Model.CardGameModel;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -29,11 +32,14 @@ public class ConteneurResumerJoueur extends JPanel {
         addWidgets();
     }
 
-
+    public JPanel getGlobal() {
+        return global;
+    }
 
     private void initAttribut() {
 
         global = new JPanel();
+        global.putClientProperty("joueur",joueurs);
         jPanelRight = new JPanel();
         jPanelRight.setLayout(new BoxLayout(jPanelRight, BoxLayout.Y_AXIS));
         jLabelScientifique = new JLabel();
@@ -175,4 +181,78 @@ public class ConteneurResumerJoueur extends JPanel {
 //            jLabelAvancement = new JLabel();
         }
     }
+
+    public void setControler(ListenerPlateau listenerPlateau){
+        global.addMouseListener(listenerPlateau);
+    }
+
+    private Icon initCardImage(CardGameModel card) {
+        Icon icon= null;
+        try {
+            icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+card.getNom()+".png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return icon;
+    }
+
+    public void showPopup(){
+        JDialog jDialog=new JDialog();
+        boolean page2=false;
+        boolean page3=false;
+        UIManager.put("TabbedPane.contentOpaque", false);
+        JTabbedPane jTabbedPane;
+        JPanel conteneursCardsPage1=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage2=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage3=new JPanel(new GridLayout(3,3));
+        conteneursCardsPage1.setBackground(Color.orange);
+        conteneursCardsPage2.setBackground(Color.orange);
+        conteneursCardsPage3.setBackground(Color.orange);
+        jDialog.setBackground(Color.orange);
+        conteneursCardsPage1.setOpaque(false);
+        conteneursCardsPage2.setOpaque(false);
+        conteneursCardsPage3.setOpaque(false);
+        JLabel[] cards;
+        if (joueurs==1){
+            cards=new JLabel[fenetre.getJeu().getJoueur1().getMainJoueur().size()];
+            for (int i=0;i<cards.length;i++){
+                cards[i]=new JLabel(initCardImage(fenetre.getJeu().getJoueur1().getMainJoueur().get(i)));
+                cards[i].setOpaque(false);
+            }
+        }else {
+            cards=new JLabel[fenetre.getJeu().getJoueur2().getMainJoueur().size()];
+            for (int i=0;i<cards.length;i++){
+                cards[i]=new JLabel(initCardImage(fenetre.getJeu().getJoueur2().getMainJoueur().get(i)));
+            }
+        }
+        for (int i=0;i<cards.length;i++){
+            cards[i].setMinimumSize(new Dimension(220,50));
+            cards[i].setMaximumSize(new Dimension(220,50));
+            cards[i].setPreferredSize(new Dimension(220,50));
+            if (i>17){
+                conteneursCardsPage3.add(cards[i]);
+                page3=true;
+            }else if (i>8){
+                conteneursCardsPage2.add(cards[i]);
+                page2=true;
+            }else {
+                conteneursCardsPage1.add(cards[i]);
+            }
+        }
+        if (page2){
+            jTabbedPane=new JTabbedPane();
+            jTabbedPane.addTab("Page 1",conteneursCardsPage1);
+            jTabbedPane.addTab("Page 2",conteneursCardsPage2);
+            if (page3){
+                jTabbedPane.addTab("Page 3",conteneursCardsPage3);
+            }
+            jDialog.setContentPane(jTabbedPane);
+        }else {
+            jDialog.setContentPane(conteneursCardsPage1);
+        }
+        jDialog.pack();
+        jDialog.setVisible(true);
+    }
+
 }

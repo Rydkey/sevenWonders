@@ -2,7 +2,7 @@ package Model;
 
 import Model.DeckModel;
 import org.junit.Test;
-import org.mockito.Mockito;
+//import org.mockito.Mockito;
 
 import java.util.Random;
 
@@ -13,8 +13,8 @@ public class DeckModelUnitTest {
     @Test
     public void faireCardTabTest(){
         DeckModel deck = new DeckModel();
-        Random rand = Mockito.mock(Random.class);
-        deck.faireCardTab(rand);
+        //Random rand = Mockito.mock(Random.class);
+        //deck.faireCardTab(rand);
         deck.printCardTab();
     }
 }

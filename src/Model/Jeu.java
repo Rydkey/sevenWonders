@@ -10,6 +10,8 @@ public class Jeu {
     private Boolean J1joue;
     private int age;
     private DeckModel deckModel;
+    private Age2Carte age2Carte;
+    private Age3Carte age3Carte;
 
     public Jeu(Joueur joueur1, Joueur joueur2) {
         this.joueur1 = joueur1;

@@ -1,6 +1,7 @@
 package Vue;
 
 import Controleur.ListenerPlateau;
+import Model.CardGameModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -166,13 +167,17 @@ public class ConteneurPlateauCarte extends JPanel {
     private Icon initCardImage(int i,int j) {
         Icon icon= null;
         if (fen.getJeu().getAge()==1) {
-            System.out.println("src/ressources/age1/"+fen.getJeu().getDeckModel().cardTab[i][j].getNom()+".png");
             try {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+fen.getJeu().getDeckModel().cardTab[i][j].getNom()+".png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+        }else {
+            try {
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age2/"+fen.getJeu().getDeckModel().cardTab[i][j].getNom()+".png")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return icon;
@@ -180,43 +185,43 @@ public class ConteneurPlateauCarte extends JPanel {
 
     private Icon initCardMerveille(int i){
         ImageIcon icon=null;
-        System.out.println("size:"+fen.getJeu().getDeckMerveilleModel().getDeckMerveille().size());
-        System.out.println("i:"+i);
+        System.out.println("idmerveille:"+i);
         try {
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 1) {
+            if (i == 1) {
+                System.out.println("circus");
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Circus-Maximus.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 2) {
+            if (i == 2) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Colosse.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 3) {
+            if (i == 3) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grand-Phare.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 4) {
+            if (i == 4) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Jardins-Suspendus.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 5) {
+            if (i == 5) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Grande-Bibliotheque.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 6) {
+            if (i == 6) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Mausolee.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 7) {
+            if (i == 7) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Piree.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 8) {
+            if (i == 8) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Pyramide.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 9) {
+            if (i == 9) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Sphinx.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 10) {
+            if (i == 10) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-wonders-duel-Statue-de-Zeux.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 11) {
+            if (i == 11) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Temple-Artemis.jpg")));
             }
-            if (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(i).getIdMerveille() == 12) {
+            if (i == 12) {
                 icon = new ImageIcon(ImageIO.read(new File("src/ressources/wonders/7-Wonders-Duel-Merveille-Via-Appia.jpg")));
             }
         }catch(IOException e){
@@ -274,9 +279,10 @@ public class ConteneurPlateauCarte extends JPanel {
             panelMerveilles[i]=new JPanel();
             panelMerveilles[i].setLayout(new BoxLayout(panelMerveilles[i],BoxLayout.Y_AXIS));
             if (fen.getJeu().getJ1joue()){
-                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur1().getIdMerveille()[i]-1).getIdMerveille()));
+                System.out.println(fen.getJeu().getJoueur1().getMerveilleJoueur().get(i).getIdMerveille());
+                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getJoueur1().getMerveilleJoueur().get(i).getIdMerveille()));
             }else {
-                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur2().getIdMerveille()[i]-1).getIdMerveille()));
+                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getJoueur2().getMerveilleJoueur().get(i).getIdMerveille()));
             }
 
             labelMerveillesImages[i].setMinimumSize(new Dimension(500,300));
@@ -286,6 +292,9 @@ public class ConteneurPlateauCarte extends JPanel {
             labelMerveillesPrix[i].setFont(NewFont.getParchment());
             labelMerveillesPrix[i].setOpaque(false);
             panelMerveilles[i].setOpaque(false);
+            panelMerveilles[i].addMouseListener(listenerPlateau);
+            panelMerveilles[i].putClientProperty("nb",i);
+            System.out.println("i:"+i);
             panelMerveilles[i].add(labelMerveillesImages[i]);
             panelMerveilles[i].add(labelMerveillesPrix[i]);
             global.add(panelMerveilles[i]);
@@ -294,5 +303,90 @@ public class ConteneurPlateauCarte extends JPanel {
         jDialog.pack();
         jDialog.setVisible(true);
 
+    }
+
+    public void showDestroyCardPopup(String couleur) {
+        JDialog jDialog=new JDialog();
+        boolean page2=false;
+        boolean page3=false;
+        UIManager.put("TabbedPane.contentOpaque", false);
+        JTabbedPane jTabbedPane;
+        JPanel conteneursCardsPage1=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage2=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage3=new JPanel(new GridLayout(3,3));
+        conteneursCardsPage1.setBackground(Color.orange);
+        conteneursCardsPage2.setBackground(Color.orange);
+        conteneursCardsPage3.setBackground(Color.orange);
+        jDialog.setBackground(Color.orange);
+        conteneursCardsPage1.setOpaque(false);
+        conteneursCardsPage2.setOpaque(false);
+        conteneursCardsPage3.setOpaque(false);
+        JLabel[] cards;
+        if (!fen.getJeu().getJ1joue()){
+            int compteCarte=0;
+            for (int i=0;i<fen.getJeu().getJoueur1().getMainJoueur().size();i++){
+                if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals(couleur)){
+                    compteCarte++;
+                }
+            }
+            cards=new JLabel[compteCarte];
+            for (int i=0;i<cards.length;i++){
+                if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals(couleur)) {
+                    cards[i] = new JLabel(initImage(fen.getJeu().getJoueur1().getMainJoueur().get(i)));
+                }
+            }
+        }else {
+
+            int compteCarte=0;
+            for (int i=0;i<fen.getJeu().getJoueur2().getMainJoueur().size();i++){
+                if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals(couleur)){
+                    compteCarte++;
+                }
+            }
+            cards=new JLabel[compteCarte];
+            for (int i=0;i<cards.length;i++){
+                if (fen.getJeu().getJoueur2().getMainJoueur().get(i).getColor().equals(couleur)) {
+                    cards[i] = new JLabel(initImage(fen.getJeu().getJoueur2().getMainJoueur().get(i)));
+                }
+            }
+        }
+        for (int i=0;i<cards.length;i++){
+            cards[i].setMinimumSize(new Dimension(220,50));
+            cards[i].setMaximumSize(new Dimension(220,50));
+            cards[i].setPreferredSize(new Dimension(220,50));
+            if (i>17){
+                conteneursCardsPage3.add(cards[i]);
+                page3=true;
+            }else if (i>8){
+                conteneursCardsPage2.add(cards[i]);
+                page2=true;
+            }else {
+                conteneursCardsPage1.add(cards[i]);
+            }
+        }
+        if (page2){
+            jTabbedPane=new JTabbedPane();
+            jTabbedPane.addTab("Page 1",conteneursCardsPage1);
+            jTabbedPane.addTab("Page 2",conteneursCardsPage2);
+            if (page3){
+                jTabbedPane.addTab("Page 3",conteneursCardsPage3);
+            }
+            jDialog.setContentPane(jTabbedPane);
+        }else {
+            jDialog.setContentPane(conteneursCardsPage1);
+        }
+        jDialog.pack();
+        jDialog.setVisible(true);
+    }
+
+    private Icon initImage(CardGameModel cardGameModel) {
+        Icon icon= null;
+        try {
+            icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+cardGameModel.getNom()+".png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return icon;
     }
 }

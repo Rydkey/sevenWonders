@@ -1,9 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by zliao on 01/12/16.
  */
 public class Age2Carte {
+    private ArrayList deckAge2;
+    public CardGameModel[][] cardTab;
+
     CardGameModel haras = new CardGameModel(0,0,0,0,new int[]{0,0,0,0,0},0 ,"rouge");
     CardGameModel baraquement = new CardGameModel(0,0,0,new int[]{0,0,0,0,0},0 ,"rouge");
     CardGameModel champTir = new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"rouge");

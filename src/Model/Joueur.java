@@ -10,26 +10,34 @@ public class Joueur {
     private int idJoueur;
     private int pieces;
     private int pointScore;
+    private int pointScorePiece;
     private int pointAttaque;
-    private int[] idMerveille;
     private int[] ressource;
-    private boolean[] prixRessource;
+    private boolean[] prixRessourceReduit;
+    private int[] prixRessource;
     private ArrayList<Integer> idAvancement;
     private int tour;
-    private ArrayList<CardGameModel> mainJoueur = new ArrayList<>();
+    private ArrayList<Integer[]> ressourcePossible;
+    private ArrayList<CardMerveilleModel> merveilleJoueur;
+    private ArrayList<CardGameModel> mainJoueur;
 
     public Joueur(String text) {
         this.nom=text;
+        mainJoueur = new ArrayList<>();
+        merveilleJoueur = new ArrayList<>();
         idAvancement=new ArrayList<>();
         ressource=new int[]{0,0,0,0,0};
-        prixRessource=new boolean[]{false,false,false,false,false};
-        idMerveille=new int[]{-1,-1,-1,-1};
-        pieces=7;
+        prixRessource=new int[]{2,2,2,2,2};
+        prixRessourceReduit =new boolean[]{false,false,false,false,false};
+        ressourcePossible=new ArrayList<>();
+        pointScorePiece=0;
+        pointScore=0;
+        setPieces(7);
     }
 
 
-    public boolean[] getPrixRessource() {
-        return prixRessource;
+    public boolean[] getPrixRessourceReduit() {
+        return prixRessourceReduit;
     }
 
     public int[] getRessource() {
@@ -40,23 +48,6 @@ public class Joueur {
         this.ressource = ressource;
     }
 
-    public int[] getIdMerveille() {
-        return idMerveille;
-    }
-
-    public void setIdMerveille(int[] idMerveille) {
-        this.idMerveille = idMerveille;
-    }
-
-    public void addIdMerveille(int idMerveillePasTab) {
-        boolean trouver=false;
-        for (int i=0;i<idMerveille.length && !trouver;i++){
-            if (idMerveille[i]==-1){
-                idMerveille[i]=idMerveillePasTab;
-                trouver=true;
-            }
-        }
-    }
 
     public int getTour() {
         return tour;
@@ -82,12 +73,19 @@ public class Joueur {
         this.pointScore = pointScore;
     }
 
+    public int getPointScorePiece() {
+        return pointScorePiece;
+    }
+
     public int getPieces() {
         return pieces;
     }
 
     public void setPieces(int pieces) {
         this.pieces = pieces;
+        System.out.println(this.pieces/3);
+        pointScorePiece=(this.pieces/3);
+        System.out.println(pointScorePiece);
     }
 
     public int getIdJoueur() {
@@ -114,25 +112,109 @@ public class Joueur {
         return mainJoueur;
     }
 
-    public void defausse(CardModel carte){
-        setPieces(pieces+carte.getPieces());
+    public ArrayList<CardMerveilleModel> getMerveilleJoueur() {
+        return merveilleJoueur;
     }
 
-    public void piocher(CardGameModel carte,int prix) {
+    public ArrayList<Integer[]> getRessourcePossible() {
+        return ressourcePossible;
+    }
+
+    public int getRessourcePossible(int i) {
+        int somme=0;
+        for (int j=0;j<ressourcePossible.size();j++){
+            somme+=ressourcePossible.get(j)[i];
+        }
+        return somme;
+    }
+
+    public void setRessourcePossible(ArrayList<Integer[]> ressourcePossible) {
+        this.ressourcePossible = ressourcePossible;
+    }
+
+    public int[] getPrixRessource() {
+        return prixRessource;
+    }
+
+    public void setPrixRessource(int[] prixRessource) {
+        this.prixRessource = prixRessource;
+    }
+
+    public void piocher(CardGameModel carte, int prix) {
         mainJoueur.add(carte);
-        setPieces(getPieces()+carte.getPieces());
-        setPointScore(getPointScore()+carte.getPointScore());
-        setPieces(getPieces()-prix);
+        if (carte.getPieces()!=0){
+            setPieces(getPieces()+carte.getPieces());
+        }
+        if (carte.getPointScore()!=0) {
+            setPointScore(getPointScore() + carte.getPointScore());
+        }
+        if (prix!=0) {
+            setPieces(getPieces() - prix);
+        }
         for (int i=0;i<5;i++){
             if (carte.getRessource()!=null) {
+                boolean ressourcePoss=false;
+                Integer[] resPoss = new Integer[5];
                 if (carte.getRessource()[i]==-1){
-
+                    prixRessourceReduit[i]=true;
+                }else if (carte.getRessource()[i]==-2){
+                    resPoss[i]=1;
+                    ressourcePoss=true;
+                }else {
+                    resPoss[i]=carte.getRessource()[i];
+                    ressource[i] += carte.getRessource()[i];
                 }
-                ressource[i] += carte.getRessource()[i];
+                if (ressourcePoss){
+                    ressourcePossible.add(resPoss);
+                }
             }
         }
         if (carte.getIdAvancement()!=0){
             idAvancement.add(carte.getIdAvancement());
+        }
+    }
+
+    public void constructMerveilles(int nb,int prix) {
+        CardMerveilleModel carte=merveilleJoueur.remove(nb);
+        if (carte.getPieces()!=0){
+            setPieces(getPieces()+carte.getPieces());
+        }
+        if (carte.getPointScore()!=0) {
+            setPointScore(getPointScore() + carte.getPointScore());
+        }
+        if (prix!=0) {
+            setPieces(getPieces() - prix);
+        }
+        for (int i=0;i<5;i++){
+            if (carte.getRessource()!=null) {
+                if (carte.getRessource()[i]==-1){
+                    prixRessourceReduit[i]=true;
+                }else {
+                    ressource[i] += carte.getRessource()[i];
+                }
+            }
+        }
+        if (carte.getIdAvancement()!=0){
+            idAvancement.add(carte.getIdAvancement());
+        }
+    }
+
+    public void augmentePrixRessource(CardGameModel carte){
+        if (carte.getRessource()!=null) {
+            for (int i=0;i<5;i++){
+                System.out.println(carte.getRessource()[i]);
+                if (carte.getRessource()[i]==-1){
+                    prixRessourceReduit[i]=true;
+                    prixRessource[i] = 1;
+                }
+                if (carte.getRessource()[i]>0){
+                    if (prixRessourceReduit[i]) {
+                        prixRessource[i] = 1;
+                    }else {
+                        prixRessource[i] += carte.getRessource()[i];
+                    }
+                }
+            }
         }
     }
 }

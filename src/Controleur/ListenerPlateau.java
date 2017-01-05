@@ -38,6 +38,76 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             conteneurResumerJoueur1.showPopup();
         }else if (e.getSource().equals(conteneurResumerJoueur2.getGlobal())){
             conteneurResumerJoueur2.showPopup();
+        }else if (e.getSource().getClass().equals(JPanel.class)){
+            int nb =(int)((JPanel)e.getSource()).getClientProperty("nb");
+            int prix=0;
+            String erreur="no error";
+            if (fen.getJeu().getJ1joue()){
+                for (int i=0;i<5;i++){
+                    prix += (fen.getJeu().getJoueur1().getMerveilleJoueur().get(nb).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
+                }
+                if (prix>fen.getJeu().getJoueur1().getPieces()){
+                    erreur="erreur";
+                }else {
+                    fen.getJeu().getJoueur1().setPieces(fen.getJeu().getJoueur1().getPieces() - prix);
+                    fen.getJeu().getJoueur1().constructMerveilles(nb, prix);
+                    switch (fen.getJeu().getJoueur1().getMerveilleJoueur().get(nb).getIdMerveille()) {
+                        case 1:
+                            fen.getConteneurPlateauCarte().showDestroyCardPopup("grise");
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 10:
+                            fen.getConteneurPlateauCarte().showDestroyCardPopup("marron");
+                            break;
+                        case 12:
+                            break;
+                        case 11:
+                        case 9:
+                        case 7:
+                        case 4:
+                            break;
+                        default:
+                    }
+                }
+            }else {
+                for (int i=0;i<5;i++){
+                    prix+= (fen.getJeu().getJoueur2().getMerveilleJoueur().get(nb).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
+                }
+                if (prix>fen.getJeu().getJoueur2().getPieces()){
+                    erreur="erreur";
+                }else {
+                    fen.getJeu().getJoueur2().setPieces(fen.getJeu().getJoueur1().getPieces() - prix);
+                    fen.getJeu().getJoueur2().constructMerveilles(nb, prix);
+                    switch (fen.getJeu().getJoueur2().getMerveilleJoueur().get(nb).getIdMerveille()) {
+                        case 1:
+                            fen.getConteneurPlateauCarte().showDestroyCardPopup("grise");
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 10:
+                            fen.getConteneurPlateauCarte().showDestroyCardPopup("marron");
+                            break;
+                        case 12:
+                            break;
+                        case 11:
+                        case 9:
+                        case 7:
+                        case 4:
+                            break;
+                        default:
+                    }
+                }
+
+            }
+            if (erreur.equals("no error")) {
+                fen.getConteneurPlateauCarte().getjDialog().setVisible(false);
+                conteneurPlateauCarte.getjDialog().dispose();
+            }
         }else {
             int[] pos;
             pos = (int[]) ((JLabel) e.getSource()).getClientProperty("pos");
@@ -46,11 +116,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                     int prix = fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_pieces();
                     for (int i = 0; i < 5; i++) {
                         if (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i] > 0) {
-                            if (fen.getJeu().getJoueur1().getPrixRessource()[i]) {
-                                prix += fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i];
-                            } else {
-                                prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getRessource()[i] + 2);
-                            }
+                            prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
                         }
                     }
 
@@ -65,12 +131,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                     int prix = fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_pieces();
                     for (int i = 0; i < 5; i++) {
                         if (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i] > 0) {
-                            System.out.println(fen.getJeu().getJoueur2().getPrixRessource()[i]);
-                            if (fen.getJeu().getJoueur2().getPrixRessource()[i]) {
-                                prix += fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i];
-                            } else {
-                                prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur1().getRessource()[i] + 2);
-                            }
+                            prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
                         }
                     }
 
@@ -117,34 +178,26 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 int prix=fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_pieces();
                 for (int i=0;i<5;i++){
                     if (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i]-fen.getJeu().getJoueur1().getRessource()[i]>0) {
-                        if (fen.getJeu().getJoueur1().getPrixRessource()[i]){
-                            prix+=fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i];
-                        }else {
-                            prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getRessource()[i] + 2);
-                        }
+                        prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
                     }
                 }
-                if (prix<fen.getJeu().getJoueur1().getPieces()){
+                System.out.println("achat\n\n");
+                if (prix<=fen.getJeu().getJoueur1().getPieces()){
                     fen.getJeu().getJoueur1().piocher(fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]],prix);
+                    fen.getJeu().getJoueur2().augmentePrixRessource(fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]]);
                     fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]]=null;
                 }else {
                     error="Not enough money";
                 }
             }else {
-
                 int prix=fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_pieces();
                 for (int i=0;i<5;i++){
-                    System.out.println(fen.getJeu().getJoueur2().getPrixRessource()[i]);
-                    if (fen.getJeu().getJoueur2().getPrixRessource()[i]){
-                        prix+=fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i];
-                    }else {
-                        prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur1().getRessource()[i] + 2);
-                    }
+                    prix += (fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
                 }
-                System.out.println("prix"+prix);
-                System.out.println(fen.getJeu().getJoueur1().getPieces());
-                if (prix<fen.getJeu().getJoueur2().getPieces()) {
+                System.out.println("achat\n\n");
+                if (prix<=fen.getJeu().getJoueur2().getPieces()) {
                     fen.getJeu().getJoueur2().piocher(fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]], prix);
+                    fen.getJeu().getJoueur1().augmentePrixRessource(fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]]);
                     fen.getJeu().getDeckModel().cardTab[pos[0]][pos[1]] = null;
                 }else {
                     error="Not enough money";
@@ -183,21 +236,13 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             if (fen.getJeu().getJ1joue()){
                 for (int k=0;k<4;k++){
                     for (int i=0;i<5;i++){
-                        if (fen.getJeu().getJoueur1().getPrixRessource()[i]){
-                            prix[k]+=fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur1().getIdMerveille()[k]-1).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i];
-                        }else {
-                            prix[k] += (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur1().getIdMerveille()[k]-1).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getRessource()[i] + 2);
-                        }
+                        prix[k] += (fen.getJeu().getJoueur1().getMerveilleJoueur().get(k).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
                     }
                 }
             }else {
                 for (int k=0;k<4;k++){
                     for (int i=0;i<5;i++){
-                        if (fen.getJeu().getJoueur1().getPrixRessource()[i]){
-                            prix[k]+=fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur2().getIdMerveille()[k]-1).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i];
-                        }else {
-                            prix[k] += (fen.getJeu().getDeckMerveilleModel().getDeckMerveille().get(fen.getJeu().getJoueur2().getIdMerveille()[k]-1).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getRessource()[i] + 2);
-                        }
+                        prix[k] += (fen.getJeu().getJoueur2().getMerveilleJoueur().get(k).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
                     }
                 }
             }
@@ -213,12 +258,15 @@ public class ListenerPlateau implements MouseListener,ActionListener {
         }
         boolean age1Ended=true;
         for (int i=0;i<2;i++){
+            System.out.println(fen.getJeu().getDeckModel().cardTab[0][i]!=null);
             if (fen.getJeu().getDeckModel().cardTab[0][i]!=null) age1Ended=false;
         }
+
         if (age1Ended){
             fen.getJeu().setAge(2);
+            fen.setVisible(false);
             fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
+            fen.setVisible(true);
         }
     }
-
 }

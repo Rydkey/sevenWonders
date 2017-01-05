@@ -31,9 +31,9 @@ public class ListenerChoixMerveille implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         if (!e.getComponent().getName().equals("-1")) {
             if (fen.getJeu().getJ1joue()) {
-                fen.getJeu().getJoueur1().addIdMerveille(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())).getIdMerveille());
+                fen.getJeu().getJoueur1().getMerveilleJoueur().add(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())));
             } else {
-                fen.getJeu().getJoueur2().addIdMerveille(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())).getIdMerveille());
+                fen.getJeu().getJoueur2().getMerveilleJoueur().add(fen.getJeu().getDeckMerveilleModel().getChoixCarte().get(Integer.parseInt(e.getComponent().getName())));
             }
             fen.getJeu().getDeckMerveilleModel().getChoixCarte().remove(Integer.parseInt(e.getComponent().getName()));
             if (fen.getJeu().getDeckMerveilleModel().getChoixCarte().size() == 3 || fen.getJeu().getDeckMerveilleModel().getChoixCarte().size() == 1) {
@@ -44,15 +44,13 @@ public class ListenerChoixMerveille implements MouseListener {
                 conteneurChoixMerveille = new ConteneurChoixMerveille(fen);
                 conteneurChoixMerveille.setControleur(this);
                 fen.setContentPane(conteneurChoixMerveille);
-            } else if (fen.getJeu().getJoueur1().getIdMerveille()[3] == -1) {
+            } else if (fen.getJeu().getJoueur1().getMerveilleJoueur().size() == 2) {
                 fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
                 fen.getJeu().getDeckMerveilleModel().choixCarte(new Random());
                 conteneurChoixMerveille = new ConteneurChoixMerveille(fen);
                 conteneurChoixMerveille.setControleur(this);
                 fen.setContentPane(conteneurChoixMerveille);
             } else {
-                fen.getJeu().getJoueur1().setPointScore(3);
-                fen.getJeu().getJoueur2().setPointScore(3);
                 fen.getJeu().setAge(1);
                 fen.getJeu().setDeckModel(new DeckModel());
                 fen.getJeu().getDeckModel().faireCardTab(new Random());

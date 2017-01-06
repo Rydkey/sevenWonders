@@ -9,6 +9,8 @@ import java.util.Random;
 public class DeckModel {
     //Carte Age 1
     ArrayList<CardGameModel> deckAge1;
+    ArrayList<CardGameModel> deckAge2;
+    ArrayList<CardGameModel> deckAge3;
     public CardGameModel[][] cardTab;
 
     public DeckModel(){
@@ -38,12 +40,70 @@ public class DeckModel {
             add(new CardGameModel(0,0,4 ,new int[]{0,0,0,0,0},0 ,"taverne","jaune"));
             add(new CardScientifiqueModel(0,0,0,5 ,new int[]{0,0,0,0,0},2 ,"officine",4));
         }};
+        deckAge2=new ArrayList<CardGameModel>(){{
+            add(new CardGameModel(0,0,0,0,new int[]{0,0,0,0,0},0 ,"haras","rouge"));
+            add(new CardGameModel(0,0,0,new int[]{0,0,0,0,0},0 ,"baraquement","rouge"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"champTir","rouge"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"muraille","rouge"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"placeArmes","rouge"));
+            add(new CardGameModel(0,0,0,new int[]{0,0,0,0,0} ,new int[]{0,0,0,0,0},0 ,"scierie","marron"));
+            add(new CardGameModel(0,0,0,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0  ,"briqueterie","marron"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0 ,"carriere","marron"));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0,"bibliotheque",0));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"dispensaire",0));
+            add(new CardScientifiqueModel(0,0,0,0,new int[]{0,0,0,0,0},0 ,"ecole",0));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0,"laboratoire",0));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0,"soufflerie","grise"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0 ,"sechoir","grise"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0 ,"forum","jaune"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"caravanserail","jaune"));
+            add(new CardGameModel(1,0,0 ,new int[]{0,0,0,0,0},0 ,"douanes","jaune"));
+            add(new CardGameModel(1,0,0 ,new int[]{0,0,0,0,0},0 ,"brasserie","jaune"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"tribunal","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"statue","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,3,0,0,0},0 ,"temple","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"aqueduc","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"rostres ","bleu"));
+        }};
+        deckAge3=new ArrayList<CardGameModel>(){{
+            add(new CardGameModel(0,0,0,0,new int[]{0,0,0,0,0},0 ,"arsenal","rouge"));
+            add(new CardGameModel(0,0,0,new int[]{0,0,0,0,0},0 ,"pretoire","rouge"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"fortifications","rouge"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"atelierDeSiege","rouge"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"cirque","rouge"));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0,"academie",0));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"etude",0));
+            add(new CardScientifiqueModel(0,0,0,0,new int[]{0,0,0,0,0},0 ,"universite",0));
+            add(new CardScientifiqueModel(0,0,0 ,new int[]{0,0,0,0,0},0,"observatoire",0));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},new int[]{0,0,0,0,0},0 ,"chambredeCommerce","jaune"));
+            add(new CardGameModel(0,0,0 ,new int[]{0,0,0,0,0},0 ,"port","jaune"));
+            add(new CardGameModel(1,0,0 ,new int[]{0,0,0,0,0},0 ,"armurerie","jaune"));
+            add(new CardGameModel(1,0,0 ,new int[]{0,0,0,0,0},0 ,"phare","jaune"));
+            add(new CardGameModel(1,0,0 ,new int[]{0,0,0,0,0},0 ,"arene","jaune"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"palace","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"hotelDeVille","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,3,0,0,0},0 ,"obelisque","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"jardins","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"pantheon ","bleu"));
+            add(new CardGameModel(0,0,0,0 ,new int[]{0,0,0,0,0},0 ,"senat ","bleu"));
+        }};
+
     }
 
     //Ajouter les couts des cartes fait
     public void tirageAleatoire(Random random){
         for(int i=0; i<3;i++){
             deckAge1.remove(random.nextInt(deckAge1.size()));
+        }
+    }
+    public void tirageAleatoireAge2(Random random){
+        for(int i=0; i<3;i++){
+            deckAge2.remove(random.nextInt(deckAge2.size()));
+        }
+    }
+    public void tirageAleatoireAge3(Random random){
+        for(int i=0; i<3;i++){
+            deckAge3.remove(random.nextInt(deckAge3.size()));
         }
     }
 

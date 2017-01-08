@@ -26,7 +26,7 @@ public class ListenerInscription implements ActionListener{
         fenetre.finInscriptionJoueurs(conteneur);
         fenetre.setVisible(false);
         fenetre.remove(fenetre.getContentPane());
-        fenetre.setJeu(new Jeu(conteneur.getJoueur1().getText(),conteneur.getJoueur2().getText()));
+        fenetre.setJeu(new Jeu(conteneur.getJoueur1().getText(),conteneur.getJoueur2().getText(),new Random()));
         fenetre.getJeu().setDeckMerveilleModel(new DeckMerveilleModel());
         fenetre.getJeu().getDeckMerveilleModel().choixCarte(new Random());
         fenetre.getJeu().setJ1joue(new Random().nextBoolean());

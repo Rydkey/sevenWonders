@@ -80,8 +80,7 @@ public class ConteneurPlateauCarte extends JPanel {
         }else if (fen.getJeu().getAge()==2){
             int rank=0;
             for (int i=0;i<5;i++){
-                for (int j=0;j<6;j++){
-                    if (j<5-i){
+                for (int j=0;j<6-i;j++){
                         if (i==1 || i==3) {
                             tabCarte[rank].setText("Caché");
                             tabCarte[rank].setOpaque(true);
@@ -104,7 +103,6 @@ public class ConteneurPlateauCarte extends JPanel {
                             jPanelLevel5.add(tabCarte[rank]);
                         }
                         rank++;
-                    }
                 }
             }
         }
@@ -144,6 +142,7 @@ public class ConteneurPlateauCarte extends JPanel {
         JButton buttonBuild=new JButton("Construire une merveille");
         buttonBuy.putClientProperty("pos",pos);
         buttonSell.putClientProperty("pos",pos);
+        buttonBuild.putClientProperty("pos",pos);
         buttonBuild.setFont(NewFont.getParchment());
         buttonBuy.setFont(NewFont.getParchment());
         buttonSell.setFont(NewFont.getParchment());
@@ -168,13 +167,13 @@ public class ConteneurPlateauCarte extends JPanel {
         Icon icon= null;
         if (fen.getJeu().getAge()==1) {
             try {
-                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+fen.getJeu().getDeckModel().cardTab[i][j].getNom()+".png")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+fen.getJeu().getDeckModel().cardTabAge1[i][j].getNom()+".png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else {
             try {
-                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age2/"+fen.getJeu().getDeckModel().cardTab[i][j].getNom()+".png")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age2/"+fen.getJeu().getAge2Carte().cardTab[i][j].getNom()+".png")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -245,22 +244,35 @@ public class ConteneurPlateauCarte extends JPanel {
     }
 
     public void updateAllCarte() {
-        if (fen.getJeu().getAge()==1){
-            int rank=0;
-            for (int i=0;i<5;i++) {
+        int rank=0;
+        for (int i=0;i<5;i++) {
+            if (fen.getJeu().getAge() == 1) {
                 for (int j = 0; j < 6; j++) {
                     if (j<i+2) {
                         if (i > 0) {
                             if (j != i + 1) {
-                                if (fen.getJeu().getDeckModel().cardTab[i-1][j]!=null && (fen.getJeu().getDeckModel().cardTab[i][j]) == null && fen.getJeu().getDeckModel().cardTab[i][j + 1] == null) {
-                                    updateCard(rank - fen.getJeu().getDeckModel().cardTab[i - 1].length, i - 1, j);
+                                if (fen.getJeu().getDeckModel().cardTabAge1[i-1][j]!=null && (fen.getJeu().getDeckModel().cardTabAge1[i][j]) == null && fen.getJeu().getDeckModel().cardTabAge1[i][j + 1] == null) {
+                                    updateCard(rank - fen.getJeu().getDeckModel().cardTabAge1[i - 1].length, i - 1, j);
                                 }
                             }
                         }
                         rank++;
                     }
                 }
+            }else if (fen.getJeu().getAge()==2){
+                for (int j = 0; j < 6-i; j++) {
+                        if (i > 0) {
+                            if (fen.getJeu().getDeckModel().cardTabAge2[i-1][j]!=null && (fen.getJeu().getDeckModel().cardTabAge2[i][j]) == null && (j==0 || fen.getJeu().getDeckModel().cardTabAge2[i][j - 1] == null)) {
+                                updateCard(rank - fen.getJeu().getDeckModel().cardTabAge2[i - 1].length, i - 1, j);
+                            }
+                            if (fen.getJeu().getDeckModel().cardTabAge2[i-1][j+1]!=null && (fen.getJeu().getDeckModel().cardTabAge2[i][j]) == null && (j==fen.getJeu().getDeckModel().cardTabAge2[i].length-1 || fen.getJeu().getDeckModel().cardTabAge2[i][j + 1] == null)) {
+                                updateCard(rank - fen.getJeu().getDeckModel().cardTabAge2[i - 1].length+1, i - 1, j+1);
+                            }
+                        }
+                    rank++;
+                }
             }
+
         }
     }
 
@@ -278,23 +290,22 @@ public class ConteneurPlateauCarte extends JPanel {
         for (int i=0;i<4;i++){
             panelMerveilles[i]=new JPanel();
             panelMerveilles[i].setLayout(new BoxLayout(panelMerveilles[i],BoxLayout.Y_AXIS));
-            if (fen.getJeu().getJ1joue()){
-                System.out.println(fen.getJeu().getJoueur1().getMerveilleJoueur().get(i).getIdMerveille());
-                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getJoueur1().getMerveilleJoueur().get(i).getIdMerveille()));
-            }else {
-                labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getJoueur2().getMerveilleJoueur().get(i).getIdMerveille()));
-            }
-
+            labelMerveillesImages[i]=new JLabel(initCardMerveille(fen.getJeu().getJ1joue()?fen.getJeu().getJoueur1().getMerveilleJoueur().get(i).getIdMerveille():fen.getJeu().getJoueur2().getMerveilleJoueur().get(i).getIdMerveille()));
             labelMerveillesImages[i].setMinimumSize(new Dimension(500,300));
             labelMerveillesImages[i].setMaximumSize(new Dimension(500,300));
             labelMerveillesImages[i].setPreferredSize(new Dimension(500,300));
-            labelMerveillesPrix[i]=new JLabel("prix :"+prix[i]);
+            if (fen.getJeu().getJ1joue()?fen.getJeu().getJoueur1().getMerveilleConstructed()[i]:fen.getJeu().getJoueur2().getMerveilleConstructed()[i]) {
+                labelMerveillesPrix[i] = new JLabel("Déja construit");
+            }else {
+                labelMerveillesPrix[i] = new JLabel("prix :" + prix[i]);
+                panelMerveilles[i].addMouseListener(listenerPlateau);
+            }
             labelMerveillesPrix[i].setFont(NewFont.getParchment());
             labelMerveillesPrix[i].setOpaque(false);
             panelMerveilles[i].setOpaque(false);
-            panelMerveilles[i].addMouseListener(listenerPlateau);
             panelMerveilles[i].putClientProperty("nb",i);
-            System.out.println("i:"+i);
+            System.out.println(pos);
+            panelMerveilles[i].putClientProperty("pos",pos);
             panelMerveilles[i].add(labelMerveillesImages[i]);
             panelMerveilles[i].add(labelMerveillesPrix[i]);
             global.add(panelMerveilles[i]);
@@ -305,8 +316,63 @@ public class ConteneurPlateauCarte extends JPanel {
 
     }
 
-    public void showDestroyCardPopup(String couleur) {
-        JDialog jDialog=new JDialog();
+    public void showThrownCard(ListenerPlateau listenerPlateau){
+        jDialog=new JDialog();
+        boolean page2=false;
+        boolean page3=false;
+        UIManager.put("TabbedPane.contentOpaque", false);
+        JTabbedPane jTabbedPane;
+        JPanel conteneursCardsPage1=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage2=new JPanel(new GridLayout(3,3));
+        JPanel conteneursCardsPage3=new JPanel(new GridLayout(3,3));
+        conteneursCardsPage1.setBackground(Color.orange);
+        conteneursCardsPage2.setBackground(Color.orange);
+        conteneursCardsPage3.setBackground(Color.orange);
+        jDialog.setBackground(Color.orange);
+        conteneursCardsPage1.setOpaque(false);
+        conteneursCardsPage2.setOpaque(false);
+        conteneursCardsPage3.setOpaque(false);
+        JLabel[] cards;
+        cards=new JLabel[fen.getJeu().getDeckModel().getDeckAge1().size()+fen.getJeu().getDeckModel().getDeckAge2().size()];
+        for (int i=0;i<cards.length;i++){
+            if (i<fen.getJeu().getDeckModel().getDeckAge1().size()){
+                cards[i] = new JLabel(initImage(fen.getJeu().getDeckModel().getDeckAge1().get(i)));
+            }else {
+                cards[i] = new JLabel(initImage(fen.getJeu().getDeckModel().getDeckAge2().get(i)));
+            }
+            cards[i].putClientProperty("position",i);
+            cards[i].putClientProperty("test",2);
+            cards[i].addMouseListener(listenerPlateau);
+            cards[i].setMinimumSize(new Dimension(220,50));
+            cards[i].setMaximumSize(new Dimension(220,50));
+            cards[i].setPreferredSize(new Dimension(220,50));
+            if (i>17){
+                conteneursCardsPage3.add(cards[i]);
+                page3=true;
+            }else if (i>8){
+                conteneursCardsPage2.add(cards[i]);
+                page2=true;
+            }else {
+                conteneursCardsPage1.add(cards[i]);
+            }
+        }
+        if (page2){
+            jTabbedPane=new JTabbedPane();
+            jTabbedPane.addTab("Page 1",conteneursCardsPage1);
+            jTabbedPane.addTab("Page 2",conteneursCardsPage2);
+            if (page3){
+                jTabbedPane.addTab("Page 3",conteneursCardsPage3);
+            }
+            jDialog.setContentPane(jTabbedPane);
+        }else {
+            jDialog.setContentPane(conteneursCardsPage1);
+        }
+        jDialog.pack();
+        jDialog.setVisible(true);
+    }
+
+    public void showDestroyCardPopup(ListenerPlateau listenerPlateau,String couleur) {
+        jDialog=new JDialog();
         boolean page2=false;
         boolean page3=false;
         UIManager.put("TabbedPane.contentOpaque", false);
@@ -333,13 +399,15 @@ public class ConteneurPlateauCarte extends JPanel {
             for (int i=0;i<cards.length;i++){
                 if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals(couleur)) {
                     cards[i] = new JLabel(initImage(fen.getJeu().getJoueur1().getMainJoueur().get(i)));
+                    cards[i].putClientProperty("position",i);
+                    cards[i].putClientProperty("test",1);
                 }
             }
         }else {
 
             int compteCarte=0;
             for (int i=0;i<fen.getJeu().getJoueur2().getMainJoueur().size();i++){
-                if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals(couleur)){
+                if (fen.getJeu().getJoueur2().getMainJoueur().get(i).getColor().equals(couleur)){
                     compteCarte++;
                 }
             }
@@ -351,6 +419,7 @@ public class ConteneurPlateauCarte extends JPanel {
             }
         }
         for (int i=0;i<cards.length;i++){
+            cards[i].addMouseListener(listenerPlateau);
             cards[i].setMinimumSize(new Dimension(220,50));
             cards[i].setMaximumSize(new Dimension(220,50));
             cards[i].setPreferredSize(new Dimension(220,50));

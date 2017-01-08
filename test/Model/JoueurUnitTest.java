@@ -30,7 +30,7 @@ public class JoueurUnitTest {
     }
 
     public void testGetIdMerveille() {
-        assertEquals("L'id de la merveille est incorrect", "id merveille", joueur.getIdMerveille());
+        assertEquals("L'id de la merveille est incorrect", "id merveille", joueur.getMerveilleJoueur());
 
     }
 

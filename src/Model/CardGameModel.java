@@ -51,6 +51,10 @@ public class CardGameModel extends CardModel {
         super(pointScore, pointAttaque, pieces, idAvancement, prix_resource, prix_pieces, nom);
         this.color = color;
     }
+    public CardGameModel(int pointScore, int pointAttaque, int pieces, int idAvancement,int secondIdAvancement, int[] prix_resource, int prix_pieces, String nom, String color) {
+        super(pointScore, pointAttaque, pieces, idAvancement, secondIdAvancement, prix_resource, prix_pieces, nom);
+        this.color = color;
+    }
 
     public CardGameModel(int pointAttaque, int pointScore, int pieces, int[] prix_ressource, String nom) {
         super(pointScore, pointAttaque, pieces, prix_ressource,0, nom);

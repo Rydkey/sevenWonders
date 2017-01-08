@@ -16,38 +16,40 @@ public class Joueur {
     private boolean[] prixRessourceReduit;
     private int[] prixRessource;
     private ArrayList<Integer> idAvancement;
+    private ArrayList<Integer> idScience;
     private int tour;
     private ArrayList<Integer[]> ressourcePossible;
     private ArrayList<CardMerveilleModel> merveilleJoueur;
+    private boolean[] merveilleConstructed;
     private ArrayList<CardGameModel> mainJoueur;
 
     public Joueur(String text) {
         this.nom=text;
         mainJoueur = new ArrayList<>();
         merveilleJoueur = new ArrayList<>();
+        idScience=new ArrayList<>();
         idAvancement=new ArrayList<>();
         ressource=new int[]{0,0,0,0,0};
         prixRessource=new int[]{2,2,2,2,2};
         prixRessourceReduit =new boolean[]{false,false,false,false,false};
         ressourcePossible=new ArrayList<>();
         pointScorePiece=0;
+        merveilleConstructed=new boolean[]{false,false,false,false};
         pointScore=0;
         setPieces(7);
     }
 
+    public ArrayList<Integer> getIdScience() {
+        return idScience;
+    }
 
-    public boolean[] getPrixRessourceReduit() {
-        return prixRessourceReduit;
+    public boolean[] getMerveilleConstructed() {
+        return merveilleConstructed;
     }
 
     public int[] getRessource() {
         return ressource;
     }
-
-    public void setRessource(int[] ressource) {
-        this.ressource = ressource;
-    }
-
 
     public int getTour() {
         return tour;
@@ -128,17 +130,10 @@ public class Joueur {
         return somme;
     }
 
-    public void setRessourcePossible(ArrayList<Integer[]> ressourcePossible) {
-        this.ressourcePossible = ressourcePossible;
-    }
-
     public int[] getPrixRessource() {
         return prixRessource;
     }
 
-    public void setPrixRessource(int[] prixRessource) {
-        this.prixRessource = prixRessource;
-    }
 
     public void piocher(CardGameModel carte, int prix) {
         mainJoueur.add(carte);
@@ -153,6 +148,8 @@ public class Joueur {
         }
         for (int i=0;i<5;i++){
             if (carte.getRessource()!=null) {
+                System.out.println("i"+carte.getRessource()[i]);
+
                 boolean ressourcePoss=false;
                 Integer[] resPoss = new Integer[5];
                 if (carte.getRessource()[i]==-1){
@@ -167,15 +164,25 @@ public class Joueur {
                 if (ressourcePoss){
                     ressourcePossible.add(resPoss);
                 }
+                if (prixRessourceReduit[i]){
+                    prixRessource[i]=1;
+                }
             }
         }
         if (carte.getIdAvancement()!=0){
             idAvancement.add(carte.getIdAvancement());
         }
+        if (carte.getSecondIdAvancement()!=0){
+            idAvancement.add(carte.getSecondIdAvancement());
+        }
+        if (carte.getClass().equals(CardScientifiqueModel.class)){
+            idScience.add(((CardScientifiqueModel)carte).getIdScientifique());
+        }
     }
 
     public void constructMerveilles(int nb,int prix) {
-        CardMerveilleModel carte=merveilleJoueur.remove(nb);
+        CardMerveilleModel carte=merveilleJoueur.get(nb);
+        merveilleConstructed[nb]=true;
         if (carte.getPieces()!=0){
             setPieces(getPieces()+carte.getPieces());
         }
@@ -193,6 +200,9 @@ public class Joueur {
                     ressource[i] += carte.getRessource()[i];
                 }
             }
+            if (prixRessourceReduit[i]){
+                prixRessource[i]=1;
+            }
         }
         if (carte.getIdAvancement()!=0){
             idAvancement.add(carte.getIdAvancement());
@@ -202,11 +212,6 @@ public class Joueur {
     public void augmentePrixRessource(CardGameModel carte){
         if (carte.getRessource()!=null) {
             for (int i=0;i<5;i++){
-                System.out.println(carte.getRessource()[i]);
-                if (carte.getRessource()[i]==-1){
-                    prixRessourceReduit[i]=true;
-                    prixRessource[i] = 1;
-                }
                 if (carte.getRessource()[i]>0){
                     if (prixRessourceReduit[i]) {
                         prixRessource[i] = 1;
@@ -215,6 +220,55 @@ public class Joueur {
                     }
                 }
             }
+        }
+    }
+
+    public void defausse(int i) {
+        CardGameModel carte=mainJoueur.remove(i);
+        for (int j=0;j<5;j++){
+            ressource[j]-=carte.getRessource()[j];
+        }
+    }
+
+    public void piocherGratuit(CardGameModel carte) {
+        mainJoueur.add(carte);
+        if (carte.getPieces()!=0){
+            setPieces(getPieces()+carte.getPieces());
+        }
+        if (carte.getPointScore()!=0) {
+            setPointScore(getPointScore() + carte.getPointScore());
+        }
+        for (int i=0;i<5;i++){
+            if (carte.getRessource()!=null) {
+                System.out.println("i"+carte.getRessource()[i]);
+
+                boolean ressourcePoss=false;
+                Integer[] resPoss = new Integer[5];
+                if (carte.getRessource()[i]==-1){
+                    prixRessourceReduit[i]=true;
+                }else if (carte.getRessource()[i]==-2){
+                    resPoss[i]=1;
+                    ressourcePoss=true;
+                }else {
+                    resPoss[i]=carte.getRessource()[i];
+                    ressource[i] += carte.getRessource()[i];
+                }
+                if (ressourcePoss){
+                    ressourcePossible.add(resPoss);
+                }
+                if (prixRessourceReduit[i]){
+                    prixRessource[i]=1;
+                }
+            }
+        }
+        if (carte.getIdAvancement()!=0){
+            idAvancement.add(carte.getIdAvancement());
+        }
+        if (carte.getSecondIdAvancement()!=0){
+            idAvancement.add(carte.getSecondIdAvancement());
+        }
+        if (carte.getClass().equals(CardScientifiqueModel.class)){
+            idScience.add(((CardScientifiqueModel)carte).getIdScientifique());
         }
     }
 }

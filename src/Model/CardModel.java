@@ -8,6 +8,7 @@ public class CardModel {
     private int pointAttaque;
     private int pieces;
     private int idAvancement;
+    private int secondIdAvancement;
     //Bois,pierre, argile,papyrus,verre
     private int[] ressource;
     private int[] prix_resource;
@@ -74,8 +75,8 @@ public class CardModel {
     public CardModel(int pointScore, int pointAttaque, int pieces, int idAvancement, int[] prix_resource, int prix_pieces, String nom) {
         this.pointScore = pointScore;
         this.pointAttaque = pointAttaque;
-        this.pieces = pieces;
         this.idAvancement = idAvancement;
+        this.pieces = pieces;
         this.prix_pieces = prix_pieces;
         this.nom = nom;
         this.prix_resource = prix_resource;
@@ -100,6 +101,20 @@ public class CardModel {
         this.nom = nom;
     }
 
+    public CardModel(int pointScore, int pointAttaque, int pieces, int idAvancement, int secondIdAvancement, int[] prix_resource, int prix_pieces, String nom) {
+        this.pointScore = pointScore;
+        this.pointAttaque = pointAttaque;
+        this.pieces = pieces;
+        this.idAvancement = idAvancement;
+        this.secondIdAvancement = secondIdAvancement;
+        this.prix_resource = prix_resource;
+        this.prix_pieces = prix_pieces;
+        this.nom = nom;
+    }
+
+    public int getSecondIdAvancement() {
+        return secondIdAvancement;
+    }
 
     public int getIdAvancement() {
         return idAvancement;

@@ -14,16 +14,17 @@ import java.io.IOException;
  */
 public class ConteneurResumerJoueur extends JPanel {
     private int joueurs;
-    Fenetre fenetre;
-    JPanel global;
-    JPanel jPanelRight;
-    JLabel jLabelNom;
-    JLabel jLabelMerveille;
-    JLabel jLabelscorePiece;
-    JLabel jLabelressource;
-    JLabel jLabelScientifique;
-    JPanel jPanelAvancement;
-    JLabel[] jLabelsAvancement;
+    private Fenetre fenetre;
+    private JPanel global;
+    private JPanel jPanelRight;
+    private JLabel jLabelNom;
+    private JLabel jLabelMerveille;
+    private JLabel jLabelscorePiece;
+    private JLabel jLabelressource;
+    private JPanel jPanelScientifique;
+    private JLabel[] jLabelScientifique;
+    private JPanel jPanelAvancement;
+    private JLabel[] jLabelsAvancement;
 
     public ConteneurResumerJoueur(Fenetre fenetre,int joueurs){
         this.joueurs=joueurs;
@@ -42,7 +43,8 @@ public class ConteneurResumerJoueur extends JPanel {
         global.putClientProperty("joueur",joueurs);
         jPanelRight = new JPanel();
         jPanelRight.setLayout(new BoxLayout(jPanelRight, BoxLayout.Y_AXIS));
-        jLabelScientifique = new JLabel();
+        jPanelScientifique= new JPanel();
+        jLabelScientifique = new JLabel[5];
         jPanelAvancement = new JPanel(new GridLayout(4,5));
         jLabelsAvancement = new JLabel[17];
         for (int i=0;i<17;i++){
@@ -52,39 +54,31 @@ public class ConteneurResumerJoueur extends JPanel {
             jLabelsAvancement[i].setMaximumSize(new Dimension(50,50));
             jLabelsAvancement[i].setPreferredSize(new Dimension(50,50));
         }
+        for (int i=0;i<5;i++){
+            jLabelScientifique[i] = new JLabel();
+            jLabelScientifique[i].setOpaque(false);
+            jLabelScientifique[i].setMinimumSize(new Dimension(50,50));
+            jLabelScientifique[i].setMaximumSize(new Dimension(50,50));
+            jLabelScientifique[i].setPreferredSize(new Dimension(50,50));
+        }
+        String string="<html>Merveilles: <br>";
+        for (int i=0;i<4;i++){
+            string+=(joueurs==1?fenetre.getJeu().getJoueur1().getMerveilleJoueur().get(i).getNom():fenetre.getJeu().getJoueur2().getMerveilleJoueur().get(i).getNom())+"<br>";
+        }
+        string+="</html>";
+        jLabelMerveille = new JLabel(string);
+        jLabelscorePiece = new JLabel("<html>Score:"+(joueurs==1?fenetre.getJeu().getJoueur1().getPointScore()+fenetre.getJeu().getJoueur1().getPointScorePiece():fenetre.getJeu().getJoueur2().getPointScore()+fenetre.getJeu().getJoueur2().getPointScorePiece())+"<br> Pieces :"+(joueurs==1?fenetre.getJeu().getJoueur1().getPieces():fenetre.getJeu().getJoueur2().getPieces())+"</html>");
+
         if (joueurs==1){
-            if (fenetre.getJeu().getJ1joue()) {
-                jLabelNom = new JLabel(fenetre.getJeu().getJoueur1().getNom()+" à toi");
-            }else {
-                jLabelNom = new JLabel(fenetre.getJeu().getJoueur1().getNom());
-            }
-            String string="<html>Merveilles: <br>";
-            for (int i=0;i<4;i++){
-                string+=fenetre.getJeu().getJoueur1().getMerveilleJoueur().get(i).getNom()+"<br>";
-            }
-            string+="</html>";
-            jLabelMerveille = new JLabel(string);
-            jLabelscorePiece = new JLabel("<html>Score:"+(fenetre.getJeu().getJoueur1().getPointScore()+fenetre.getJeu().getJoueur1().getPointScorePiece())+"<br> Pieces :"+fenetre.getJeu().getJoueur1().getPieces()+"</html>");
+            jLabelNom = new JLabel(fenetre.getJeu().getJoueur1().getNom()+(fenetre.getJeu().getJ1joue()?" à toi":""));
             //Bois,pierre, argile,papyrus,verre
-            string="<html>Bois :"+fenetre.getJeu().getJoueur1().getRessource()[0]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[0]+"<br> Pierrre :"+fenetre.getJeu().getJoueur1().getRessource()[1]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur1().getRessource()[2]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur1().getRessource()[3]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur1().getRessource()[4]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[4]+"</html>";
+            string="<html>Bois :"+fenetre.getJeu().getJoueur1().getRessource()[0]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[0]+"<br> Pierre :"+fenetre.getJeu().getJoueur1().getRessource()[1]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur1().getRessource()[2]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur1().getRessource()[3]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur1().getRessource()[4]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[4]+"</html>";
             jLabelressource = new JLabel(string);
 
         }else {
-
-            if (fenetre.getJeu().getJ1joue()) {
-                jLabelNom = new JLabel(fenetre.getJeu().getJoueur2().getNom());
-            }else {
-                jLabelNom = new JLabel(fenetre.getJeu().getJoueur2().getNom()+" à toi");
-            }
-            String string="<html>Merveilles: <br>";
-            for (int i=0;i<4;i++){
-                string+=fenetre.getJeu().getJoueur1().getMerveilleJoueur().get(i).getNom()+"<br>";
-            }
-            string+="</html>";
-            jLabelMerveille = new JLabel(string);
-            jLabelscorePiece = new JLabel("<html>Score:"+(fenetre.getJeu().getJoueur2().getPointScore()+fenetre.getJeu().getJoueur2().getPointScorePiece())+"<br> Pieces :"+fenetre.getJeu().getJoueur2().getPieces()+"</html>");
+            jLabelNom = new JLabel(fenetre.getJeu().getJoueur2().getNom()+(!fenetre.getJeu().getJ1joue()?" à toi":""));
             //Bois,pierre, argile,papyrus,verre
-            string="<html>Bois :"+fenetre.getJeu().getJoueur2().getRessource()[0]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[0]+"<br> Pierrre :"+fenetre.getJeu().getJoueur2().getRessource()[1]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur2().getRessource()[2]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur2().getRessource()[3]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur2().getRessource()[4]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[4]+"</html>";
+            string="<html>Bois :"+fenetre.getJeu().getJoueur2().getRessource()[0]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[0]+"<br> Pierre :"+fenetre.getJeu().getJoueur2().getRessource()[1]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur2().getRessource()[2]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur2().getRessource()[3]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur2().getRessource()[4]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[4]+"</html>";
             jLabelressource = new JLabel(string);
         }
         this.setBackground(Color.orange);
@@ -94,14 +88,13 @@ public class ConteneurResumerJoueur extends JPanel {
         jLabelMerveille.setOpaque(false);
         jLabelscorePiece.setOpaque(false);
         jLabelressource.setOpaque(false);
-        jLabelScientifique.setOpaque(false);
+        jPanelScientifique.setOpaque(false);
         jPanelAvancement.setOpaque(false);
 
         jLabelNom.setFont(NewFont.getParchment().deriveFont(20f));
         jLabelMerveille.setFont(NewFont.getParchment().deriveFont(20f));
         jLabelscorePiece.setFont(NewFont.getParchment().deriveFont(20f));
         jLabelressource.setFont(NewFont.getParchment().deriveFont(20f));
-        jLabelScientifique.setFont(NewFont.getParchment().deriveFont(20f));
     }
 
     private Icon initImageAvance(Integer integer) {
@@ -118,9 +111,12 @@ public class ConteneurResumerJoueur extends JPanel {
         for (int i=0;i<jLabelsAvancement.length;i++){
             jPanelAvancement.add(jLabelsAvancement[i]);
         }
+        for (int i=0;i<jLabelScientifique.length;i++){
+            jPanelScientifique.add(jLabelScientifique[i]);
+        }
         jPanelRight.add(jLabelNom);
         jPanelRight.add(jLabelscorePiece);
-        jPanelRight.add(jLabelScientifique);
+        jPanelRight.add(jPanelScientifique);
         jPanelRight.add(jLabelressource);
         global.add(jLabelMerveille);
         global.add(jPanelRight);
@@ -144,7 +140,7 @@ public class ConteneurResumerJoueur extends JPanel {
             jLabelMerveille.setText(string);
             jLabelscorePiece.setText("<html>Score:"+(fenetre.getJeu().getJoueur1().getPointScore()+fenetre.getJeu().getJoueur1().getPointScorePiece())+"<br> Pieces :"+fenetre.getJeu().getJoueur1().getPieces()+"</html>");
             //Bois,pierre, argile,papyrus,verre
-            string="<html>Bois :"+fenetre.getJeu().getJoueur1().getRessource()[0]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[0]+"<br> Pierrre :"+fenetre.getJeu().getJoueur1().getRessource()[1]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur1().getRessource()[2]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur1().getRessource()[3]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur1().getRessource()[4]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[4]+"</html>";
+            string="<html>Bois :"+fenetre.getJeu().getJoueur1().getRessource()[0]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[0]+"<br> Pierre :"+fenetre.getJeu().getJoueur1().getRessource()[1]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur1().getRessource()[2]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur1().getRessource()[3]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur1().getRessource()[4]+" ("+fenetre.getJeu().getJoueur1().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur1().getPrixRessource()[4]+"</html>";
             jLabelressource.setText(string);
             for (int i=0;i<17;i++){
                 if (i<fenetre.getJeu().getJoueur1().getIdAvancement().size()) {
@@ -152,8 +148,10 @@ public class ConteneurResumerJoueur extends JPanel {
                     jLabelsAvancement[i].setOpaque(false);
                 }
             }
-//            jLabelScientifique = new JLabel();
-//            jLabelAvancement = new JLabel();
+            for (int i=0;i<fenetre.getJeu().getJoueur2().getIdScience().size();i++){
+                jLabelScientifique[i].setIcon(initScience(fenetre.getJeu().getJoueur2().getIdScience().get(i)));
+                jLabelScientifique[i].setOpaque(false);
+            }
         }else {
 
             if (fenetre.getJeu().getJ1joue()) {
@@ -169,7 +167,7 @@ public class ConteneurResumerJoueur extends JPanel {
             jLabelMerveille.setText(string);
             jLabelscorePiece.setText("<html>Score:"+(fenetre.getJeu().getJoueur2().getPointScore()+fenetre.getJeu().getJoueur2().getPointScorePiece())+"<br> Pieces :"+fenetre.getJeu().getJoueur2().getPieces()+"</html>");
             //Bois,pierre, argile,papyrus,verre
-            string="<html>Bois :"+fenetre.getJeu().getJoueur2().getRessource()[0]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[0]+"<br> Pierrre :"+fenetre.getJeu().getJoueur2().getRessource()[1]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur2().getRessource()[2]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur2().getRessource()[3]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur2().getRessource()[4]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[4]+"</html>";
+            string="<html>Bois :"+fenetre.getJeu().getJoueur2().getRessource()[0]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(0)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[0]+"<br> Pierre :"+fenetre.getJeu().getJoueur2().getRessource()[1]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(1)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[1]+"<br> Argile :"+fenetre.getJeu().getJoueur2().getRessource()[2]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(2)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[2]+"<br> Papyrus :"+fenetre.getJeu().getJoueur2().getRessource()[3]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(3)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[3]+"<br> Verre :"+fenetre.getJeu().getJoueur2().getRessource()[4]+" ("+fenetre.getJeu().getJoueur2().getRessourcePossible(4)+") Prix :"+fenetre.getJeu().getJoueur2().getPrixRessource()[4]+"</html>";
             jLabelressource.setText(string);
             for (int i=0;i<17;i++){
                 if (i<fenetre.getJeu().getJoueur2().getIdAvancement().size()) {
@@ -177,8 +175,10 @@ public class ConteneurResumerJoueur extends JPanel {
                     jLabelsAvancement[i].setOpaque(false);
                 }
             }
-//            jLabelScientifique = new JLabel();
-//            jLabelAvancement = new JLabel();
+            for (int i=0;i<fenetre.getJeu().getJoueur2().getIdScience().size();i++){
+                jLabelScientifique[i].setIcon(initScience(fenetre.getJeu().getJoueur2().getIdScience().get(i)));
+                jLabelScientifique[i].setOpaque(false);
+            }
         }
     }
 
@@ -190,6 +190,18 @@ public class ConteneurResumerJoueur extends JPanel {
         Icon icon= null;
         try {
             icon = new ImageIcon(ImageIO.read(new File("src/ressources/age1/"+card.getNom()+".png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return icon;
+    }
+
+    private Icon initScience(int i){
+
+        Icon icon= null;
+        try {
+            icon = new ImageIcon(ImageIO.read(new File("src/ressources/science/"+i+".png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

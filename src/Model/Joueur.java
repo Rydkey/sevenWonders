@@ -11,6 +11,7 @@ public class Joueur {
     private int pieces;
     private int pointScore;
     private int pointScorePiece;
+    private int scoreBataille;
     private int pointAttaque;
     private int[] ressource;
     private boolean[] prixRessourceReduit;
@@ -22,6 +23,8 @@ public class Joueur {
     private ArrayList<CardMerveilleModel> merveilleJoueur;
     private boolean[] merveilleConstructed;
     private ArrayList<CardGameModel> mainJoueur;
+    private boolean premiereAttaque;
+    private boolean deuxiemeAttaque;
 
     public Joueur(String text) {
         this.nom=text;
@@ -34,9 +37,28 @@ public class Joueur {
         prixRessourceReduit =new boolean[]{false,false,false,false,false};
         ressourcePossible=new ArrayList<>();
         pointScorePiece=0;
+        scoreBataille=0;
         merveilleConstructed=new boolean[]{false,false,false,false};
         pointScore=0;
         setPieces(7);
+        premiereAttaque=false;
+        deuxiemeAttaque=false;
+    }
+
+    public void setScoreBataille(int scoreBattaille) {
+        this.scoreBataille = scoreBattaille;
+    }
+
+    public int getScore(){
+        return scoreBataille+pointScorePiece+pointScore;
+    }
+
+    public boolean isPremiereAttaque() {
+        return premiereAttaque;
+    }
+
+    public boolean isDeuxiemeAttaque() {
+        return deuxiemeAttaque;
     }
 
     public ArrayList<Integer> getIdScience() {
@@ -143,6 +165,11 @@ public class Joueur {
         if (carte.getPointScore()!=0) {
             setPointScore(getPointScore() + carte.getPointScore());
         }
+        if (carte.getPointAttaque()!=0) {
+            System.out.println("test"+carte.getPointAttaque());
+            setPointAttaque(getPointAttaque() + carte.getPointAttaque());
+        }
+
         if (prix!=0) {
             setPieces(getPieces() - prix);
         }
@@ -188,6 +215,9 @@ public class Joueur {
         }
         if (carte.getPointScore()!=0) {
             setPointScore(getPointScore() + carte.getPointScore());
+        }
+        if (carte.getPointAttaque()!=0){
+            setPointAttaque(getPointAttaque()+carte.getPointAttaque());
         }
         if (prix!=0) {
             setPieces(getPieces() - prix);
@@ -270,5 +300,13 @@ public class Joueur {
         if (carte.getClass().equals(CardScientifiqueModel.class)){
             idScience.add(((CardScientifiqueModel)carte).getIdScientifique());
         }
+    }
+
+    public void setDeuxiemeAttaque(boolean deuxiemeAttaque) {
+        this.deuxiemeAttaque = deuxiemeAttaque;
+    }
+
+    public void setPremiereAttaque(boolean premiereAttaque) {
+        this.premiereAttaque = premiereAttaque;
     }
 }

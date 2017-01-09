@@ -15,6 +15,7 @@ public class Fenetre extends JFrame {
     ConteneurResumerJoueur resumerJoueur1;
     ConteneurResumerJoueur resumerJoueur2;
     ConteneurPlateauCarte conteneurPlateauCarte;
+    ConteneurPionGuerre conteneurPionGuerre;
 
     public Fenetre(String nomFenetre){
         NewFont.chargeParchment();
@@ -37,6 +38,14 @@ public class Fenetre extends JFrame {
         pack();
         setVisible(true);
 
+    }
+
+    public ConteneurPionGuerre getConteneurPionGuerre() {
+        return conteneurPionGuerre;
+    }
+
+    public void setConteneurPionGuerre(ConteneurPionGuerre conteneurPionGuerre) {
+        this.conteneurPionGuerre = conteneurPionGuerre;
     }
 
     public ConteneurPlateauCarte getConteneurPlateauCarte() {
@@ -85,7 +94,25 @@ public class Fenetre extends JFrame {
         this.jeu = jeu;
     }
 
+    public void afficheVictoire(int joueur, int typeVictoire) {
+        this.getContentPane().removeAll();
+        Image backgroundImage=null;
+        try {
+            backgroundImage=(ImageIO.read(new File("src/ressources/Background/7WondersDuel_Fond.png")));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        JLabel conteneur=new JLabel(joueur==3?"égalité":"Bravo "+(joueur==1?jeu.getJoueur1().getNom():jeu.getJoueur2().getNom())+", tu as gagné une victoire "+(typeVictoire==1?"militaire":typeVictoire==2?"scientifique":"civile"));
+        setContentPane(new JLabel(new ImageIcon(backgroundImage)));
+        setLayout(new BorderLayout());
+        add(conteneur,BorderLayout.PAGE_END);
+        pack();
+        setVisible(true);
+    }
+
     public static void main(String[] args){
         Fenetre fen = new Fenetre("7 wonders duel");
     }
+
 }

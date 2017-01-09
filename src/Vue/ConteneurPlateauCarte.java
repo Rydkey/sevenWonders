@@ -42,6 +42,8 @@ public class ConteneurPlateauCarte extends JPanel {
         JPanel jPanelLevel3 = new JPanel();
         JPanel jPanelLevel4 = new JPanel();
         JPanel jPanelLevel5 = new JPanel();
+        JPanel jPanelLevel6 = null;
+        JPanel jPanelLevel7 = null;
         jPanelLevel1.setOpaque(false);
         jPanelLevel2.setOpaque(false);
         jPanelLevel3.setOpaque(false);
@@ -105,6 +107,78 @@ public class ConteneurPlateauCarte extends JPanel {
                         rank++;
                 }
             }
+        }else{
+            jPanelLevel6 = new JPanel();
+            jPanelLevel7 = new JPanel();
+            jPanelLevel6.setOpaque(false);
+            jPanelLevel7.setOpaque(false);
+            int rank=0;
+            for (int i=0;i<3;i++){
+                for (int j=0;j<i+2;j++){
+                    if (i==1) {
+                        tabCarte[rank].setText("Caché");
+                        tabCarte[rank].setOpaque(true);
+                    }else {
+                        tabCarte[rank].setIcon(initCardImage(i,j));
+                    }
+                    tabCarte[rank].putClientProperty("pos",new int[]{i,j,rank});
+                    tabCarte[rank].setMinimumSize(new Dimension(220,50));
+                    tabCarte[rank].setMaximumSize(new Dimension(220,50));
+                    tabCarte[rank].setPreferredSize(new Dimension(220,50));
+                    if (i==0){
+                        jPanelLevel1.add(tabCarte[rank]);
+                    }else if (i==1){
+                        jPanelLevel2.add(tabCarte[rank]);
+                    }else if (i==2){
+                        jPanelLevel3.add(tabCarte[rank]);
+                    }
+                    rank++;
+                }
+            }
+            tabCarte[9].setText("Caché");
+            tabCarte[9].setOpaque(true);
+            tabCarte[9].putClientProperty("pos",new int[]{3,0,9});
+            tabCarte[9].setMinimumSize(new Dimension(220,50));
+            tabCarte[9].setMaximumSize(new Dimension(220,50));
+            tabCarte[9].setPreferredSize(new Dimension(220,50));
+            tabCarte[10].setText("Caché");
+            tabCarte[10].setOpaque(true);
+            tabCarte[10].putClientProperty("pos",new int[]{3,0,10});
+            tabCarte[10].setMinimumSize(new Dimension(220,50));
+            tabCarte[10].setMaximumSize(new Dimension(220,50));
+            tabCarte[10].setPreferredSize(new Dimension(220,50));
+            JPanel useless=new JPanel();
+            useless.setMinimumSize(new Dimension(220,50));
+            useless.setMaximumSize(new Dimension(220,50));
+            useless.setPreferredSize(new Dimension(220,50));
+            useless.setOpaque(false);
+
+            jPanelLevel4.add(tabCarte[9]);
+            jPanelLevel4.add(useless);
+            jPanelLevel4.add(tabCarte[10]);
+            rank=11;
+            for (int i=0;i<3;i++){
+                for (int j=0;j<4-i;j++){
+                    if (i==1) {
+                        tabCarte[rank].setText("Caché");
+                        tabCarte[rank].setOpaque(true);
+                    }else {
+                        tabCarte[rank].setIcon(initCardImage(i+4,j));
+                    }
+                    tabCarte[rank].putClientProperty("pos",new int[]{i+4,j,rank});
+                    tabCarte[rank].setMinimumSize(new Dimension(220,50));
+                    tabCarte[rank].setMaximumSize(new Dimension(220,50));
+                    tabCarte[rank].setPreferredSize(new Dimension(220,50));
+                    if (i==0){
+                        jPanelLevel5.add(tabCarte[rank]);
+                    }else if (i==1){
+                        jPanelLevel6.add(tabCarte[rank]);
+                    }else if (i==2){
+                        jPanelLevel7.add(tabCarte[rank]);
+                    }
+                    rank++;
+                }
+            }
         }
 
         global.add(jPanelLevel1);
@@ -112,7 +186,10 @@ public class ConteneurPlateauCarte extends JPanel {
         global.add(jPanelLevel3);
         global.add(jPanelLevel4);
         global.add(jPanelLevel5);
-
+        if (fen.getJeu().getAge()==3) {
+            global.add(jPanelLevel6);
+            global.add(jPanelLevel7);
+        }
         add(global);
     }
 
@@ -171,11 +248,31 @@ public class ConteneurPlateauCarte extends JPanel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        }else if (fen.getJeu().getAge()==2) {
             try {
-                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age2/"+fen.getJeu().getAge2Carte().cardTab[i][j].getNom()+".png")));
+                icon = new ImageIcon(ImageIO.read(new File("src/ressources/age2/"+fen.getJeu().getDeckModel().cardTabAge2[i][j].getNom()+".png")));
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }else {
+            if (fen.getJeu().getDeckModel().cardTabAge3[i][j].getColor().equals("violet")) {
+                try {
+                    icon = new ImageIcon(ImageIO.read(new File("src/ressources/guilde/" + fen.getJeu().getDeckModel().cardTabAge3[i][j].getNom() + ".png")));
+                } catch (IOException e) {
+                    System.out.println("i:" + i);
+                    System.out.println("j:" + j);
+                    System.out.println(fen.getJeu().getDeckModel().cardTabAge3[i][j].getNom());
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    icon = new ImageIcon(ImageIO.read(new File("src/ressources/age3/" + fen.getJeu().getDeckModel().cardTabAge3[i][j].getNom() + ".png")));
+                } catch (IOException e) {
+                    System.out.println("i:" + i);
+                    System.out.println("j:" + j);
+                    System.out.println(fen.getJeu().getDeckModel().cardTabAge3[i][j].getNom());
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -294,9 +391,17 @@ public class ConteneurPlateauCarte extends JPanel {
             labelMerveillesImages[i].setMinimumSize(new Dimension(500,300));
             labelMerveillesImages[i].setMaximumSize(new Dimension(500,300));
             labelMerveillesImages[i].setPreferredSize(new Dimension(500,300));
+            int count=0;
+           for (int j=0;j<4;j++){
+               if (fen.getJeu().getJoueur1().getMerveilleConstructed()[i] || fen.getJeu().getJoueur2().getMerveilleConstructed()[i]){
+                   count++;
+               }
+           }
             if (fen.getJeu().getJ1joue()?fen.getJeu().getJoueur1().getMerveilleConstructed()[i]:fen.getJeu().getJoueur2().getMerveilleConstructed()[i]) {
                 labelMerveillesPrix[i] = new JLabel("Déja construit");
-            }else {
+            }else if (count==7){
+
+            }else{
                 labelMerveillesPrix[i] = new JLabel("prix :" + prix[i]);
                 panelMerveilles[i].addMouseListener(listenerPlateau);
             }

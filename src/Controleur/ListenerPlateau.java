@@ -542,6 +542,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             fen.setVisible(false);
             fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
             fen.getConteneurPlateauCarte().setControleur(this);
+            this.conteneurPlateauCarte=fen.getConteneurPlateauCarte();
             fen.getContentPane().removeAll();
             JPanel global = new JPanel();
             JPanel joueurs = new JPanel();
@@ -555,6 +556,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             global.add(fen.getConteneurPionGuerre());
             global.add(fen.getConteneurPlateauCarte());
             fen.setContentPane(global);
+            fen.pack();
             fen.setVisible(true);
         }
         if (age2Ended && fen.getJeu().getAge()==2){
@@ -563,6 +565,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
             fen.getContentPane().removeAll();
             fen.getConteneurPlateauCarte().setControleur(this);
+            this.conteneurPlateauCarte=fen.getConteneurPlateauCarte();
             JPanel global = new JPanel();
             JPanel joueurs = new JPanel();
             global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
@@ -575,6 +578,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             global.add(fen.getConteneurPionGuerre());
             global.add(fen.getConteneurPlateauCarte());
             fen.setContentPane(global);
+            fen.pack();
             fen.setVisible(true);
         }
         if (age3Ended && fen.getJeu().getAge()==3) {

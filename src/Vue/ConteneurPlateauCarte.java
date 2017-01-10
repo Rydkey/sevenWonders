@@ -90,9 +90,9 @@ public class ConteneurPlateauCarte extends JPanel {
                             tabCarte[rank].setIcon(initCardImage(i,j));
                         }
                         tabCarte[rank].putClientProperty("pos",new int[]{i,j,rank});
-                        tabCarte[rank].setMinimumSize(new Dimension(220,50));
-                        tabCarte[rank].setMaximumSize(new Dimension(220,50));
-                        tabCarte[rank].setPreferredSize(new Dimension(220,50));
+                        tabCarte[rank].setMinimumSize(new Dimension(176,40));
+                        tabCarte[rank].setMaximumSize(new Dimension(176,40));
+                        tabCarte[rank].setPreferredSize(new Dimension(176,40));
                         if (i==0){
                             jPanelLevel1.add(tabCarte[rank]);
                         }else if (i==1){
@@ -122,9 +122,9 @@ public class ConteneurPlateauCarte extends JPanel {
                         tabCarte[rank].setIcon(initCardImage(i,j));
                     }
                     tabCarte[rank].putClientProperty("pos",new int[]{i,j,rank});
-                    tabCarte[rank].setMinimumSize(new Dimension(220,50));
-                    tabCarte[rank].setMaximumSize(new Dimension(220,50));
-                    tabCarte[rank].setPreferredSize(new Dimension(220,50));
+                    tabCarte[rank].setMinimumSize(new Dimension(176,40));
+                    tabCarte[rank].setMaximumSize(new Dimension(176,40));
+                    tabCarte[rank].setPreferredSize(new Dimension(176,40));
                     if (i==0){
                         jPanelLevel1.add(tabCarte[rank]);
                     }else if (i==1){
@@ -138,19 +138,19 @@ public class ConteneurPlateauCarte extends JPanel {
             tabCarte[9].setText("Caché");
             tabCarte[9].setOpaque(true);
             tabCarte[9].putClientProperty("pos",new int[]{3,0,9});
-            tabCarte[9].setMinimumSize(new Dimension(220,50));
-            tabCarte[9].setMaximumSize(new Dimension(220,50));
-            tabCarte[9].setPreferredSize(new Dimension(220,50));
+            tabCarte[9].setMinimumSize(new Dimension(176,40));
+            tabCarte[9].setMaximumSize(new Dimension(176,40));
+            tabCarte[9].setPreferredSize(new Dimension(176,40));
             tabCarte[10].setText("Caché");
             tabCarte[10].setOpaque(true);
             tabCarte[10].putClientProperty("pos",new int[]{3,0,10});
-            tabCarte[10].setMinimumSize(new Dimension(220,50));
-            tabCarte[10].setMaximumSize(new Dimension(220,50));
-            tabCarte[10].setPreferredSize(new Dimension(220,50));
+            tabCarte[10].setMinimumSize(new Dimension(176,40));
+            tabCarte[10].setMaximumSize(new Dimension(176,40));
+            tabCarte[10].setPreferredSize(new Dimension(176,40));
             JPanel useless=new JPanel();
-            useless.setMinimumSize(new Dimension(220,50));
-            useless.setMaximumSize(new Dimension(220,50));
-            useless.setPreferredSize(new Dimension(220,50));
+            useless.setMinimumSize(new Dimension(176,40));
+            useless.setMaximumSize(new Dimension(176,40));
+            useless.setPreferredSize(new Dimension(176,40));
             useless.setOpaque(false);
 
             jPanelLevel4.add(tabCarte[9]);
@@ -166,9 +166,9 @@ public class ConteneurPlateauCarte extends JPanel {
                         tabCarte[rank].setIcon(initCardImage(i+4,j));
                     }
                     tabCarte[rank].putClientProperty("pos",new int[]{i+4,j,rank});
-                    tabCarte[rank].setMinimumSize(new Dimension(220,50));
-                    tabCarte[rank].setMaximumSize(new Dimension(220,50));
-                    tabCarte[rank].setPreferredSize(new Dimension(220,50));
+                    tabCarte[rank].setMinimumSize(new Dimension(176,40));
+                    tabCarte[rank].setMaximumSize(new Dimension(176,40));
+                    tabCarte[rank].setPreferredSize(new Dimension(176,40));
                     if (i==0){
                         jPanelLevel5.add(tabCarte[rank]);
                     }else if (i==1){
@@ -409,7 +409,6 @@ public class ConteneurPlateauCarte extends JPanel {
             labelMerveillesPrix[i].setOpaque(false);
             panelMerveilles[i].setOpaque(false);
             panelMerveilles[i].putClientProperty("nb",i);
-            System.out.println(pos);
             panelMerveilles[i].putClientProperty("pos",pos);
             panelMerveilles[i].add(labelMerveillesImages[i]);
             panelMerveilles[i].add(labelMerveillesPrix[i]);
@@ -438,13 +437,9 @@ public class ConteneurPlateauCarte extends JPanel {
         conteneursCardsPage2.setOpaque(false);
         conteneursCardsPage3.setOpaque(false);
         JLabel[] cards;
-        cards=new JLabel[fen.getJeu().getDeckModel().getDeckAge1().size()+fen.getJeu().getDeckModel().getDeckAge2().size()];
+        cards=new JLabel[fen.getJeu().getDeckModel().getDeckJeter().size()];
         for (int i=0;i<cards.length;i++){
-            if (i<fen.getJeu().getDeckModel().getDeckAge1().size()){
-                cards[i] = new JLabel(initImage(fen.getJeu().getDeckModel().getDeckAge1().get(i)));
-            }else {
-                cards[i] = new JLabel(initImage(fen.getJeu().getDeckModel().getDeckAge2().get(i)));
-            }
+            cards[i] = new JLabel(initImage(fen.getJeu().getDeckModel().getDeckJeter().get(i)));
             cards[i].putClientProperty("position",i);
             cards[i].putClientProperty("test",2);
             cards[i].addMouseListener(listenerPlateau);

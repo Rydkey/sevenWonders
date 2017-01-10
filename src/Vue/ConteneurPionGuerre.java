@@ -118,7 +118,13 @@ public class ConteneurPionGuerre extends JPanel{
         }else {
             tabScore_piece[6].setText("10 Point  -5 pieces");
         }
-        tabLabel[jeu.getJoueur1().getPointAttaque()-jeu.getJoueur2().getPointAttaque()+9].setIcon(initImagePion());
+        if (jeu.getJoueur1().getPointAttaque()-jeu.getJoueur2().getPointAttaque()+9>18) {
+            tabLabel[18].setIcon(initImagePion());
+        }else if (jeu.getJoueur1().getPointAttaque()-jeu.getJoueur2().getPointAttaque()+9<0){
+            tabLabel[0].setIcon(initImagePion());
+        }else {
+            tabLabel[jeu.getJoueur1().getPointAttaque() - jeu.getJoueur2().getPointAttaque() + 9].setIcon(initImagePion());
+        }
     }
 
     private Icon initImagePion(){

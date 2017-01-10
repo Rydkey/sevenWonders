@@ -8,6 +8,7 @@ import java.util.Random;
  */
 public class DeckModel {
     //Carte Age 1
+    ArrayList<CardGameModel> deckJeter;
     ArrayList<CardGameModel> deckAge1;
     ArrayList<CardGameModel> deckAge2;
     ArrayList<CardGameModel> deckAge3;
@@ -17,6 +18,7 @@ public class DeckModel {
     public CardGameModel[][] cardTabAge3;
 
     public DeckModel(Random random){
+        deckJeter=new ArrayList<>();
         deckAge1= new ArrayList<CardGameModel>(){{
             add(new CardGameModel(0,1,0,1,new int[]{1,0,0,0,0},0 ,"écuries","rouge"));
             add(new CardGameModel(0,1,0,2,new int[]{0,0,0,0,0},2 ,"palissade","rouge"));
@@ -106,6 +108,10 @@ public class DeckModel {
                 add(new CardGameModel(3, 0, 0, 17, new int[]{1, 1, 1, 2, 0}, 0,"arène", "jaune"));
             }};
         faireCardTabAge3(random);
+    }
+
+    public ArrayList<CardGameModel> getDeckJeter() {
+        return deckJeter;
     }
 
     //Ajouter les couts des cartes fait

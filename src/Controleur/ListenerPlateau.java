@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -37,14 +36,14 @@ public class ListenerPlateau implements MouseListener,ActionListener {
 
     //trop dur osef
     public int[] getBestPosRess(CardGameModel carte){
-        int []totalPosRess=new int[]{0,0,0,0,0};
-        int[] bestRessourceUse=new int[]{0,0,0,0,0};
+        int[] RessourceUsed=new int[]{0,0,0,0,0};
         boolean[] cardUsed=new boolean[fen.getJeu().getJoueur1().getRessourcePossible().size()];
-        Integer[] bestCardToUse;
+
         if (fen.getJeu().getJ1joue()){
-            int temp=0;
+            for (int i=0;i<5;i++){
+
+            }
             for (int j=0;j<fen.getJeu().getJoueur1().getRessourcePossible().size();j++) {
-                bestCardToUse = fen.getJeu().getJoueur1().getRessourcePossible().get(j);
                 for (int i = 0; i < 5; i++) {
                     if (carte.getPrix_resource()[i]!=0) {
 
@@ -171,9 +170,9 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             }else if (test==2){
                 int pos = (int) ((JLabel) e.getSource()).getClientProperty("position");
                 if (fen.getJeu().getJ1joue()){
-                    fen.getJeu().getJoueur1().piocherGratuit(fen.getJeu().getDeckModel().getDeckAge1().remove(pos));
+                    fen.getJeu().getJoueur1().piocherGratuit(fen.getJeu().getDeckModel().getDeckJeter().remove(pos));
                 }else {
-                    fen.getJeu().getJoueur2().piocherGratuit(fen.getJeu().getDeckModel().getDeckAge1().remove(pos));
+                    fen.getJeu().getJoueur2().piocherGratuit(fen.getJeu().getDeckModel().getDeckJeter().remove(pos));
                 }
             }else {
                 int[] pos;
@@ -263,6 +262,49 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                             conteneurPlateauCarte.showBuyCardPopup(this, pos, prix, vente);
                         }
                     }
+                }else {
+                    if (pos[0] == 4 || ((pos[1]>=fen.getJeu().getDeckModel().cardTabAge3[pos[0]+1].length || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]] == null) && (pos[1] == 0 || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] - 1] == null))) {
+                        if (fen.getJeu().getJ1joue()) {
+                            int prix = fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_pieces();
+                            for (int i = 0; i < 5; i++) {
+                                if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i] > 0) {
+                                    prix += (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
+                                }
+                            }
+                            if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement()!=0) {
+                                if (fen.getJeu().getJoueur1().getIdAvancement().contains(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement())) {
+                                    prix=0;
+                                }
+                            }
+                            int vente = 2;
+                            for (int i = 0; i < fen.getJeu().getJoueur1().getMainJoueur().size(); i++) {
+                                if (fen.getJeu().getJoueur1().getMainJoueur().get(i).getColor().equals("jaune")) {
+                                    vente++;
+                                }
+                            }
+                            conteneurPlateauCarte.showBuyCardPopup(this, pos, prix, vente);
+                        } else {
+                            int prix = fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_pieces();
+                            for (int i = 0; i < 5; i++) {
+                                if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i] > 0) {
+                                    prix += (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
+                                }
+                            }
+
+                            if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement()!=0) {
+                                if (fen.getJeu().getJoueur1().getIdAvancement().contains(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement())) {
+                                    prix=0;
+                                }
+                            }
+                            int vente = 2;
+                            for (int i = 0; i < fen.getJeu().getJoueur2().getMainJoueur().size(); i++) {
+                                if (fen.getJeu().getJoueur2().getMainJoueur().get(i).getColor().equals("jaune")) {
+                                    vente++;
+                                }
+                            }
+                            conteneurPlateauCarte.showBuyCardPopup(this, pos, prix, vente);
+                        }
+                    }
                 }
             }
         }
@@ -314,10 +356,10 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             fen.getJeu().getJoueur1().setScoreBataille(0);
             fen.getJeu().getJoueur2().setScoreBataille(0);
         }
-        if (fen.getJeu().getJoueur1().getPointAttaque()-fen.getJeu().getJoueur2().getPointAttaque()==9) {
+        if (fen.getJeu().getJoueur1().getPointAttaque()-fen.getJeu().getJoueur2().getPointAttaque()>=9) {
             fen.afficheVictoire(1,1);
         }
-        if (fen.getJeu().getJoueur2().getPointAttaque()-fen.getJeu().getJoueur1().getPointAttaque()==9) {
+        if (fen.getJeu().getJoueur2().getPointAttaque()-fen.getJeu().getJoueur1().getPointAttaque()>=9) {
             fen.afficheVictoire(2,1);
         }
     }
@@ -442,6 +484,47 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                         error="Not enough money";
                     }
                 }
+            }else {
+                if (fen.getJeu().getJ1joue()){
+                    int prix=fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_pieces();
+                    for (int i=0;i<5;i++){
+                        if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i] > 0) {
+                            prix += (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
+                        }
+                    }
+                    if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement()!=0) {
+                        if (fen.getJeu().getJoueur1().getIdAvancement().contains(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement())) {
+                            prix = 0;
+                        }
+                    }
+                    if (prix<=fen.getJeu().getJoueur1().getPieces()){
+                        fen.getJeu().getJoueur1().piocher(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]],prix);
+                        fen.getJeu().getJoueur2().augmentePrixRessource(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]]);
+                        fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]]=null;
+                    }else {
+                        error="Not enough money";
+                    }
+                }else {
+                    int prix=fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_pieces();
+                    for (int i=0;i<5;i++){
+                        if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i] > 0) {
+                            prix += (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_resource()[i] - fen.getJeu().getJoueur2().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
+                        }
+                    }
+                    if (fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement()!=0) {
+                        if (fen.getJeu().getJoueur2().getIdAvancement().contains(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getIdAvancement())) {
+                            prix = 0;
+                        }
+                    }
+
+                    if (prix<=fen.getJeu().getJoueur2().getPieces()) {
+                        fen.getJeu().getJoueur2().piocher(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]], prix);
+                        fen.getJeu().getJoueur1().augmentePrixRessource(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]]);
+                        fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]] = null;
+                    }else {
+                        error="Not enough money";
+                    }
+                }
             }
             if (error.equals("no error")) {
                 conteneurPlateauCarte.setInvisible(pos[2]);
@@ -469,14 +552,22 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 if (fen.getJeu().getAge()==1){
 
                     fen.getJeu().getDeckModel().getDeckAge1().add(fen.getJeu().getDeckModel().cardTabAge1[pos[0]][pos[1]]);
+                    fen.getJeu().getDeckModel().getDeckJeter().add(fen.getJeu().getDeckModel().cardTabAge1[pos[0]][pos[1]]);
                     fen.getJeu().getDeckModel().cardTabAge1[pos[0]][pos[1]] = null;
 
                     conteneurPlateauCarte.setInvisible(pos[2]);
                     conteneurPlateauCarte.getjDialog().dispose();
                 }else if (fen.getJeu().getAge()==2){
                     fen.getJeu().getDeckModel().getDeckAge1().add(fen.getJeu().getDeckModel().cardTabAge2[pos[0]][pos[1]]);
-
+                    fen.getJeu().getDeckModel().getDeckJeter().add(fen.getJeu().getDeckModel().cardTabAge2[pos[0]][pos[1]]);
                     fen.getJeu().getDeckModel().cardTabAge2[pos[0]][pos[1]] = null;
+
+                    conteneurPlateauCarte.setInvisible(pos[2]);
+                    conteneurPlateauCarte.getjDialog().dispose();
+                }else {
+                    fen.getJeu().getDeckModel().getDeckAge1().add(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]]);
+                    fen.getJeu().getDeckModel().getDeckJeter().add(fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]]);
+                    fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]] = null;
 
                     conteneurPlateauCarte.setInvisible(pos[2]);
                     conteneurPlateauCarte.getjDialog().dispose();
@@ -528,7 +619,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
         }else {
             age2Ended=false;
         }
-
+        System.out.println(age2Ended);
         boolean age3Ended=true;
         if (fen.getJeu().getAge()==3) {
             for (int i = 0; i < 2; i++) {

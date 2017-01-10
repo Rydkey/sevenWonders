@@ -176,7 +176,6 @@ public class Joueur {
         for (int i=0;i<5;i++){
             if (carte.getRessource()!=null) {
                 System.out.println("i"+carte.getRessource()[i]);
-
                 boolean ressourcePoss=false;
                 Integer[] resPoss = new Integer[5];
                 if (carte.getRessource()[i]==-1){
@@ -196,7 +195,7 @@ public class Joueur {
                 }
             }
         }
-        if (carte.getIdAvancement()!=0){
+        if (carte.getIdAvancement()!=0 && !idAvancement.contains(carte.getIdAvancement())){
             idAvancement.add(carte.getIdAvancement());
         }
         if (carte.getSecondIdAvancement()!=0){

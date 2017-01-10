@@ -102,11 +102,14 @@ public class Fenetre extends JFrame {
         }catch (Exception e){
             e.printStackTrace();
         }
-
+JPanel jPanel=new JPanel();
         JLabel conteneur=new JLabel(joueur==3?"égalité":"Bravo "+(joueur==1?jeu.getJoueur1().getNom():jeu.getJoueur2().getNom())+", tu as gagné une victoire "+(typeVictoire==1?"militaire":typeVictoire==2?"scientifique":"civile"));
+        conteneur.setFont(NewFont.getParchment().deriveFont(50f));
         setContentPane(new JLabel(new ImageIcon(backgroundImage)));
         setLayout(new BorderLayout());
-        add(conteneur,BorderLayout.PAGE_END);
+        jPanel.add(conteneur);
+        jPanel.setOpaque(false);
+        add(jPanel,BorderLayout.PAGE_END);
         pack();
         setVisible(true);
     }

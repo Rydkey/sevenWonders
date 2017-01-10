@@ -53,6 +53,14 @@ public class ListenerChoixMerveille implements MouseListener {
                 fen.getJeu().setAge(1);
 //                fen.getJeu().setAge(2);
 //                fen.getJeu().setAge(3);
+                //test victoire militaire
+                //fen.getJeu().getJoueur1().setPointAttaque(8);
+                //test victoire Scientifique
+//                fen.getJeu().getJoueur1().getIdScience().add(2);
+//                fen.getJeu().getJoueur1().getIdScience().add(3);
+//                fen.getJeu().getJoueur1().getIdScience().add(4);
+//                fen.getJeu().getJoueur1().getIdScience().add(5);
+//                fen.getJeu().getJoueur1().getIdScience().add(6);
                 fen.getJeu().setDeckModel(new DeckModel(new Random()));
                 fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
                 fen.setConteneurPionGuerre(new ConteneurPionGuerre(fen.getJeu()));

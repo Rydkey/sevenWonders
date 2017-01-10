@@ -69,12 +69,12 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 for (int i=0;i<5;i++){
                     prix += (fen.getJeu().getJoueur1().getMerveilleJoueur().get(nb).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur1().getPrixRessource()[i]);
                 }
+                System.out.println("prix"+prix);
                 if (prix>fen.getJeu().getJoueur1().getPieces()){
                     erreur="erreur";
                 }else {
                     fen.getConteneurPlateauCarte().getjDialog().dispose();
                     fen.getConteneurPlateauCarte().getjDialog().setVisible(false);
-                    fen.getJeu().getJoueur1().setPieces(fen.getJeu().getJoueur1().getPieces() - prix);
                     fen.getJeu().getJoueur1().constructMerveilles(nb, prix);
                     switch (fen.getJeu().getJoueur1().getMerveilleJoueur().get(nb).getIdMerveille()) {
                         case 1:
@@ -84,6 +84,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                             break;
                         case 6:
                             fen.getConteneurPlateauCarte().showThrownCard(this);
+                            fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
                             break;
                         case 10:
                             fen.getConteneurPlateauCarte().showDestroyCardPopup(this,"marron");
@@ -103,12 +104,12 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 for (int i=0;i<5;i++){
                     prix+= (fen.getJeu().getJoueur2().getMerveilleJoueur().get(nb).getPrix_resource()[i] - fen.getJeu().getJoueur1().getRessource()[i]) * (fen.getJeu().getJoueur2().getPrixRessource()[i]);
                 }
+                System.out.println("prix"+prix);
                 if (prix>fen.getJeu().getJoueur2().getPieces()){
                     erreur="erreur";
                 }else {
                     fen.getConteneurPlateauCarte().getjDialog().dispose();
                     fen.getConteneurPlateauCarte().getjDialog().setVisible(false);
-                    fen.getJeu().getJoueur2().setPieces(fen.getJeu().getJoueur1().getPieces() - prix);
                     fen.getJeu().getJoueur2().constructMerveilles(nb, prix);
                     switch (fen.getJeu().getJoueur2().getMerveilleJoueur().get(nb).getIdMerveille()) {
                         case 1:
@@ -118,6 +119,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                             break;
                         case 6:
                             fen.getConteneurPlateauCarte().showThrownCard(this);
+                            fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
                             break;
                         case 10:
                             fen.getConteneurPlateauCarte().showDestroyCardPopup(this,"marron");
@@ -140,6 +142,7 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 conteneurPlateauCarte.setInvisible(pos[2]);
                 conteneurPlateauCarte.updateAllCarte();
                 conteneurPlateauCarte.getTabCarte()[pos[2]].removeMouseListener(this);
+                testFinAge();
                 fen.getResumerJoueur1().updateResumer();
                 fen.getResumerJoueur2().updateResumer();
                 testVictoireScientifique();
@@ -149,6 +152,8 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                     fen.getJeu().getDeckModel().cardTabAge1[pos[0]][pos[1]] = null;
                 }else if (fen.getJeu().getAge()==2){
                     fen.getJeu().getDeckModel().cardTabAge2[pos[0]][pos[1]] = null;
+                }else {
+                    fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]] = null;
                 }
             }
         }else {
@@ -167,6 +172,11 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                     fen.getJeu().getJoueur2().defausse(pos);
                     fen.getConteneurPlateauCarte().getjDialog().dispose();
                 }
+                testFinAge();
+                fen.getResumerJoueur1().updateResumer();
+                fen.getResumerJoueur2().updateResumer();
+                testVictoireScientifique();
+                testPionGuerre();
             }else if (test==2){
                 int pos = (int) ((JLabel) e.getSource()).getClientProperty("position");
                 if (fen.getJeu().getJ1joue()){
@@ -174,6 +184,13 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                 }else {
                     fen.getJeu().getJoueur2().piocherGratuit(fen.getJeu().getDeckModel().getDeckJeter().remove(pos));
                 }
+                fen.getConteneurPlateauCarte().getjDialog().dispose();
+                fen.getJeu().setJ1joue(!fen.getJeu().getJ1joue());
+                testFinAge();
+                fen.getResumerJoueur1().updateResumer();
+                fen.getResumerJoueur2().updateResumer();
+                testVictoireScientifique();
+                testPionGuerre();
             }else {
                 int[] pos;
                 pos = (int[]) ((JLabel) e.getSource()).getClientProperty("pos");
@@ -603,6 +620,10 @@ public class ListenerPlateau implements MouseListener,ActionListener {
             fen.getResumerJoueur1().updateResumer();
             fen.getResumerJoueur2().updateResumer();
         }
+        testFinAge();
+    }
+
+    private void testFinAge() {
         boolean age1Ended=true;
         if (fen.getJeu().getAge()==1) {
             for (int i = 0; i < 2; i++) {

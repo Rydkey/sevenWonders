@@ -369,7 +369,77 @@ public class ConteneurPlateauCarte extends JPanel {
                     rank++;
                 }
             }
+        }
+        if (fen.getJeu().getAge()==3){
+            for (int i=0;i<3;i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (j < i + 2) {
+                        if (i > 0) {
+                            if (j != i + 1) {
+                                if (fen.getJeu().getDeckModel().cardTabAge1[i - 1][j] != null && (fen.getJeu().getDeckModel().cardTabAge1[i][j]) == null && fen.getJeu().getDeckModel().cardTabAge1[i][j + 1] == null) {
+                                    updateCard(rank - fen.getJeu().getDeckModel().cardTabAge3[i - 1].length, i - 1, j);
+                                }
+                            }
+                        }
+                    }
+                    rank++;
+                }
+            }
 
+            System.out.println(rank+"lolololo");
+
+            if (fen.getJeu().getDeckModel().cardTabAge3[4][0] == null && fen.getJeu().getDeckModel().cardTabAge3[4][1] == null){
+                System.out.println("zut");
+                updateCard(rank, 3,0);
+            }
+            rank++;
+            if (fen.getJeu().getDeckModel().cardTabAge3[4][2] == null && fen.getJeu().getDeckModel().cardTabAge3[4][3] == null){
+                updateCard(rank, 3,1);
+            }
+            System.out.println("moment"+rank);
+            for (int i=5;i<7;i++) {
+                for (int j = 0; j < 8-i; j++) {
+                    System.out.println("i"+i);
+                    System.out.println("j"+j);
+
+                    if (fen.getJeu().getDeckModel().cardTabAge3[i-1][j]!=null && (fen.getJeu().getDeckModel().cardTabAge3[i][j]) == null && (j==0 || fen.getJeu().getDeckModel().cardTabAge3[i][j - 1] == null)) {
+                        System.out.println("rank="+rank);
+                        updateCard(rank - fen.getJeu().getDeckModel().cardTabAge3[i - 1].length, i - 1, j);
+                    }
+
+                    if (fen.getJeu().getDeckModel().cardTabAge3[i-1][j+1]!=null && (fen.getJeu().getDeckModel().cardTabAge3[i][j]) == null && (j==fen.getJeu().getDeckModel().cardTabAge3[i].length-1 || fen.getJeu().getDeckModel().cardTabAge3[i][j + 1] == null)) {
+                        updateCard(rank - fen.getJeu().getDeckModel().cardTabAge3[i - 1].length+1, i - 1, j+1);
+                    }
+                    rank++;
+                    System.out.println("ranglol"+rank);
+                }
+            }
+            System.out.println("fin rang"+rank);
+//
+//            System.out.println(pos[0]);
+//            if (pos[0]==6){
+//                marche=true;
+//            }else if (pos[0]>3){
+//                if (()){
+//                    marche=true;
+//                }
+//            }else if (pos[0]<2){
+//                if ((fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]]) == null && fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] + 1] == null){
+//                    marche=true;
+//                }
+//            }else if (pos[0]==3){
+//                if (pos[1]==0 && (fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]]) == null && fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] + 1] == null){
+//                    marche=true;
+//                }else if (fen.getJeu().getDeckModel().cardTabAge3[4][2]==null && fen.getJeu().getDeckModel().cardTabAge3[4][3]==null && fen.getJeu().getDeckModel().cardTabAge3[3][1]!=null){
+//                    marche=true;
+//                }
+//            }else if (pos[0]==2){
+//                if ((pos[1]==0 || pos[1]==1) && fen.getJeu().getDeckModel().cardTabAge3[3][0]==null){
+//                    marche=true;
+//                }else if ((pos[1]==2 || pos[1]==3) && fen.getJeu().getDeckModel().cardTabAge3[3][1]==null){
+//                    marche=true;
+//                }
+//            }
         }
     }
 

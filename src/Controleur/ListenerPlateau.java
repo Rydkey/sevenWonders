@@ -280,7 +280,31 @@ public class ListenerPlateau implements MouseListener,ActionListener {
                         }
                     }
                 }else {
-                    if (pos[0] == 4 || ((pos[1]>=fen.getJeu().getDeckModel().cardTabAge3[pos[0]+1].length || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]] == null) && (pos[1] == 0 || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] - 1] == null))) {
+                    boolean marche=false;
+                    if (pos[0]==6){
+                        marche=true;
+                    }else if (pos[0]>3){
+                        if (((pos[1]>=fen.getJeu().getDeckModel().cardTabAge3[pos[0]+1].length || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]] == null) && (pos[1] == 0 || fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] - 1] == null))){
+                            marche=true;
+                        }
+                    }else if (pos[0]<2){
+                        if ((fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]]) == null && fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] + 1] == null){
+                            marche=true;
+                        }
+                    }else if (pos[0]==3){
+                        if (pos[1]==0 && (fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1]]) == null && fen.getJeu().getDeckModel().cardTabAge3[pos[0] + 1][pos[1] + 1] == null){
+                         marche=true;
+                        }else if (fen.getJeu().getDeckModel().cardTabAge3[4][2]==null && fen.getJeu().getDeckModel().cardTabAge3[4][3]==null && fen.getJeu().getDeckModel().cardTabAge3[3][1]!=null){
+                            marche=true;
+                        }
+                    }else if (pos[0]==2){
+                        if ((pos[1]==0 || pos[1]==1) && fen.getJeu().getDeckModel().cardTabAge3[3][0]==null){
+                            marche=true;
+                        }else if ((pos[1]==2 || pos[1]==3) && fen.getJeu().getDeckModel().cardTabAge3[3][1]==null){
+                            marche=true;
+                        }
+                    }
+                    if (marche) {
                         if (fen.getJeu().getJ1joue()) {
                             int prix = fen.getJeu().getDeckModel().cardTabAge3[pos[0]][pos[1]].getPrix_pieces();
                             for (int i = 0; i < 5; i++) {

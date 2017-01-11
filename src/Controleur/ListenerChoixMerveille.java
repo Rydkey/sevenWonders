@@ -1,7 +1,5 @@
-package Controleur;
 
-import Model.Age2Carte;
-import Model.CardGameModel;
+package Controleur;
 import Model.DeckModel;
 import Vue.*;
 
@@ -54,14 +52,28 @@ public class ListenerChoixMerveille implements MouseListener {
 //                fen.getJeu().setAge(2);
 //                fen.getJeu().setAge(3);
                 //test victoire militaire
-                fen.getJeu().getJoueur1().setPointAttaque(8);
+//                fen.getJeu().getJoueur1().setPointAttaque(8);
                 //test victoire Scientifique
-                fen.getJeu().getJoueur1().getIdScience().add(2);
-                fen.getJeu().getJoueur1().getIdScience().add(3);
-                fen.getJeu().getJoueur1().getIdScience().add(4);
-                fen.getJeu().getJoueur1().getIdScience().add(5);
-                fen.getJeu().getJoueur1().getIdScience().add(6);
+//                fen.getJeu().getJoueur1().getIdScience().add(2);
+//                fen.getJeu().getJoueur1().getIdScience().add(3);
+//                fen.getJeu().getJoueur1().getIdScience().add(4);
+//                fen.getJeu().getJoueur1().getIdScience().add(5);
+//                fen.getJeu().getJoueur1().getIdScience().add(6);
+                //testVictoire civile
+                //fen.getJeu().setAge(3);
+                //fen.getJeu().getJoueur1().setPointScore(10);
+                //test Victoire civile egalité
+                //fen.getJeu().getJoueur2().setPointScore(20);
+                //egalité pur désactivé guerre
+                //fen.getJeu.getJoueur1().setPointScore(20);
                 fen.getJeu().setDeckModel(new DeckModel(new Random()));
+//                for (int i=0;i<fen.getJeu().getDeckModel().cardTabAge3.length;i++) {
+//                    for (int j = 0; j < fen.getJeu().getDeckModel().cardTabAge3[i].length; j++) {
+//                        if (!(i==0 && j==0)){
+//                            fen.getJeu().getDeckModel().cardTabAge3[i][j] = null;
+//                        }
+//                    }
+//                }
                 fen.setConteneurPlateauCarte(new ConteneurPlateauCarte(fen));
                 fen.setConteneurPionGuerre(new ConteneurPionGuerre(fen.getJeu()));
                 JPanel global = new JPanel();
